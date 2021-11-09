@@ -227,7 +227,7 @@ public class NetworkedPlayerController : MonoBehaviour
 		//	Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 		Vector3 moveDir = UpdateControlPosition(_camControll.myDirection);
 		print("move DIR Hor: " + hDirection + "move Dir Vir:" + vDirection);
-
+		print("Github");
 
 
 
