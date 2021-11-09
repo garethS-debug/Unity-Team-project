@@ -104,7 +104,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         print("Start ID = " + (int)playerproperties["playerAvatar"]);
 
 
-
+        roomPanel.SetActive(false);
 
 
         // if (!PhotonNetwork.IsConnected)
