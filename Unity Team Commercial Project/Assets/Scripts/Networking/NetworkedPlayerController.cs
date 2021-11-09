@@ -149,6 +149,8 @@ public class NetworkedPlayerController : MonoBehaviour
 
 		Move();
 		Jump();
+
+		//this wont allow for backwards movement
 		Rotate(toRot);
 
 	
@@ -217,10 +219,18 @@ public class NetworkedPlayerController : MonoBehaviour
 	{
 		print("VECTOR 3 : " + UpdateControlPosition(_camControll.myDirection));
 
+		//Animator
+		float hDirection = Input.GetAxis("Horizontal");
+		float vDirection = Input.GetAxis("Vertical");
 
 
 		//	Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 		Vector3 moveDir = UpdateControlPosition(_camControll.myDirection);
+		print("move DIR Hor: " + hDirection + "move Dir Vir:" + vDirection);
+
+
+
+
 		moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), ref smoothMoveVelocity, smoothTime);
 		movementWithInversion = new Vector3(moveAmount.x * MovementInversion, moveAmount.y * MovementInversion, moveAmount.z * MovementInversion);
 
@@ -228,9 +238,7 @@ public class NetworkedPlayerController : MonoBehaviour
 
 
 
-		//Animator
-		float hDirection = Input.GetAxis("Horizontal");
-		float vDirection = Input.GetAxis("Vertical");
+
 
 		m_TurnAmount = Mathf.Atan2(moveDir.x, moveDir.z);                                                                     //Return value is the angle between the x-axis and a 2D vector starting at zero and terminating at (x,y).
 		m_ForwardAmount = moveDir.z;
@@ -387,6 +395,7 @@ public class NetworkedPlayerController : MonoBehaviour
 				if (moveHorizontal >0.1f || moveHorizontal < 0)
                 {
 					Vector3 moveDirFrontFacing = new Vector3(0, 0, Input.GetAxisRaw("Horizontal")).normalized; //Lock movement to forward and back 
+
 					moveDir = moveDirFrontFacing;
 					return moveDir;
 				}
@@ -438,4 +447,9 @@ public class NetworkedPlayerController : MonoBehaviour
 		}
 
 	}
+
+
+
+
+
 }
