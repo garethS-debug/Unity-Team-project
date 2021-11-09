@@ -83,7 +83,7 @@ public class NetworkedPlayerController : MonoBehaviour
 	public float camSmoothing = 0.1f;
 
 
-
+	
 
 
 	private void Awake()
@@ -380,12 +380,32 @@ public class NetworkedPlayerController : MonoBehaviour
 		{
 			case PlayerCameraController.CameraPosition.FrontFacing:
 
-			
-				Vector3 moveDirFrontFacing = new Vector3(0, 0,  Input.GetAxisRaw("Horizontal")).normalized; //Lock movement to forward and back 
+				float moveHorizontal = Input.GetAxis("Horizontal");
+				float moveVertical = Input.GetAxis("Vertical");
+				Vector3 moveDir;
 
+				if (moveHorizontal >0.1f || moveHorizontal < 0)
+                {
+					Vector3 moveDirFrontFacing = new Vector3(0, 0, Input.GetAxisRaw("Horizontal")).normalized; //Lock movement to forward and back 
+					moveDir = moveDirFrontFacing;
+					return moveDir;
+				}
+
+				else if (moveVertical > 0.1f || moveVertical < 0.0f)
+				{
+					Vector3 moveDirFrontFacing2 = new Vector3(0, 0, Input.GetAxisRaw("Vertical")).normalized; //Lock movement to forward and back 
+					moveDir = moveDirFrontFacing2;
+					return moveDir;
+				}
+
+				else
+                {
+					moveDir = new Vector3(0, 0, Input.GetAxisRaw("Horizontal")).normalized;
+					return moveDir;
+				}
 
 				//Player Controls
-				return moveDirFrontFacing;
+			
 
 
 				break;
