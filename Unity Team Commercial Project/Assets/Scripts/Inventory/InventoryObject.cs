@@ -18,7 +18,11 @@ public class InventoryObject : ScriptableObject
             {
                 Container[i].AddAmount(_amount);
                 hasItem = true;
-                break;
+
+                if (_item.name == "GoldenKey")
+                {
+                    Debug.Log("2 golden keys");
+                }
             }
         }
 
