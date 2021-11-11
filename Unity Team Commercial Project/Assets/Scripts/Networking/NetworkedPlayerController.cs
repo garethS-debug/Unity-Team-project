@@ -211,14 +211,18 @@ public class NetworkedPlayerController : MonoBehaviour
 		//float test = movementDirection.Normalize();
 
 
+		if (verticalInput == 0 && horizontalInput ==0 )
+        {
+			m_ForwardAmount = 0;
 
+		}
 
 		//m_TurnAmount = Mathf.Atan2(movementDirection.x, movementDirection.z);                                                                     //Return value is the angle between the x-axis and a 2D vector starting at zero and terminating at (x,y).
 
 		m_ForwardAmount = Mathf.Lerp(m_ForwardAmount, normalDirection * movementSpeed * anim_walkSpeed * Time.deltaTime, lerpSpeed * Time.deltaTime * 10);
 
 
-		print(m_ForwardAmount);
+	//	print(m_ForwardAmount);
 
 		UpdateAnimator();                                                                               //Update the aniumation 
 	}
