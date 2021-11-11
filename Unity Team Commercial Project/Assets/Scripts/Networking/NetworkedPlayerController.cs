@@ -46,7 +46,10 @@ public class NetworkedPlayerController : MonoBehaviour
 	Vector3 smoothMoveVelocity;
 
 	[Header("Speed Settings")]
-	public float speed = 5f;
+	public float movementSpeed = 5f;
+	public float rotationSpeed = 5f;
+	[Range(1,8)] 
+	public float anim_walkSpeed;
 
 	[Header("Sneak Settings")]
 	[HideInInspector] public int sneakHash;
@@ -83,12 +86,10 @@ public class NetworkedPlayerController : MonoBehaviour
 	public float camSmoothing = 0.1f;
 
 
-	
-
 
 	private void Awake()
 	{
-		
+
 		//Settings 
 		anim = this.gameObject.GetComponent<Animator>();                                            //Get reference to the animator
 		m_Rigidbody = GetComponent<Rigidbody>();
@@ -111,7 +112,7 @@ public class NetworkedPlayerController : MonoBehaviour
 		//Photon
 		PV = GetComponent<PhotonView>();
 
-	//	UpdateCamPosition(PlayerCameraController.CameraPosition.FrontFacing);
+		//	UpdateCamPosition(PlayerCameraController.CameraPosition.FrontFacing);
 
 	}
 
@@ -130,7 +131,7 @@ public class NetworkedPlayerController : MonoBehaviour
 
 		if (PV.IsMine)
 		{
-				CameraPrefab = 	Instantiate(camPrefab, this.transform.position, camPrefab.transform.rotation);
+			CameraPrefab = Instantiate(camPrefab, this.transform.position, camPrefab.transform.rotation);
 			//Camera
 			_camControll = CameraPrefab.GetComponent<PlayerCameraController>();
 			_camControll._netControll = this.gameObject.GetComponent<NetworkedPlayerController>();
@@ -147,18 +148,18 @@ public class NetworkedPlayerController : MonoBehaviour
 	void Update()
 	{
 
-		Move();
+		//Move();
 		Jump();
 
 		//this wont allow for backwards movement
-		Rotate(toRot);
+		//Rotate(toRot);
 
-	
+
 	}
 
-    private void LateUpdate()
-    {
-	
+	private void LateUpdate()
+	{
+
 	}
 
 
@@ -170,22 +171,74 @@ public class NetworkedPlayerController : MonoBehaviour
 		}
 
 		//Existing Movement Script
-		m_Rigidbody.MovePosition(m_Rigidbody.position + transform.TransformDirection(movementWithInversion) * Time.fixedDeltaTime);
-		
+		//m_Rigidbody.MovePosition(m_Rigidbody.position + transform.TransformDirection(movementWithInversion) * Time.fixedDeltaTime);
+
+		Move3();
 		UpdateCamPosition(_camControll.myDirection);
-		
-
-
-		
-
 
 	}
+
+
+
+	public void Move3()
+	{
+		float horizontalInput = Input.GetAxis("Horizontal");
+		float verticalInput = Input.GetAxis("Vertical");
+
+		Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
+
+		movementDirection.Normalize();
+
+		float normalDirection = movementDirection.magnitude;
+
+		//	print("normal direction : " + normalDirection * movementSpeed* 2 * Time.deltaTime);
+		//Movement of Character
+
+		movementSpeed = Mathf.Lerp(movementSpeed, (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), smoothTime);
+
+
+		transform.Translate(movementDirection * movementSpeed * Time.deltaTime, Space.World);
+
+
+		//Rotation of Character
+		if (movementDirection != Vector3.zero)
+		{
+			Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+
+			transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+		}
+
+		//float test = movementDirection.Normalize();
+
+
+		if (verticalInput == 0 && horizontalInput ==0 )
+        {
+			m_ForwardAmount = 0;
+
+		}
+
+		//m_TurnAmount = Mathf.Atan2(movementDirection.x, movementDirection.z);                                                                     //Return value is the angle between the x-axis and a 2D vector starting at zero and terminating at (x,y).
+
+		m_ForwardAmount = Mathf.Lerp(m_ForwardAmount, normalDirection * movementSpeed * anim_walkSpeed * Time.deltaTime, lerpSpeed * Time.deltaTime * 10);
+
+
+	//	print(m_ForwardAmount);
+
+		UpdateAnimator();                                                                               //Update the aniumation 
+	}
+
+	void UpdateAnimator()
+	{
+		anim.SetFloat(velocityHash, m_ForwardAmount);                                                               // update the velocity animator parameters
+		anim.SetFloat(turningHash, m_TurnAmount);                                                                   // update the turning animator parameters
+	}
+
 
 
 	public void Move2(Vector3 move)
 	{
 
-		playerVector = new Vector3(-move.x * speed, 0, -move.z * speed);                                                //Players vector
+		playerVector = new Vector3(-move.x * anim_walkSpeed, 0, -move.z * anim_walkSpeed);                                                //Players vector
 		m_TurnAmount = Mathf.Atan2(move.x, move.z);                                                                     //Return value is the angle between the x-axis and a 2D vector starting at zero and terminating at (x,y).
 		float absTurn = Mathf.Abs(m_TurnAmount);                                                                            //Get the absolute number of the turning
 
@@ -198,7 +251,7 @@ public class NetworkedPlayerController : MonoBehaviour
 
 		//Update animation
 		//UpdateAnimator(playerVector);                                                                               //Update the aniumation 
-																													//anim.SetFloat(velocityHash, idleAnimFloat);																//convert to single velocity number	
+		//anim.SetFloat(velocityHash, idleAnimFloat);																//convert to single velocity number	
 		// Transorm ROT or Quat Rot check
 		if (absTurn < 0.1f && ThirdPersonCoverSystem.Instance.leaningAgainstWall == false /*angle < 0.1f */ )
 		{
@@ -208,12 +261,7 @@ public class NetworkedPlayerController : MonoBehaviour
 
 	}
 
-
-
-
-
-
-
+	/*
 
 	void Move()
 	{
@@ -227,7 +275,6 @@ public class NetworkedPlayerController : MonoBehaviour
 		//	Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 		Vector3 moveDir = UpdateControlPosition(_camControll.myDirection);
 		print("move DIR Hor: " + hDirection + "move Dir Vir:" + vDirection);
-		print("Github");
 
 
 
@@ -247,6 +294,8 @@ public class NetworkedPlayerController : MonoBehaviour
 
 		UpdateAnimator();                                                                               //Update the aniumation 
 	}
+
+	*/
 
 
 	void Jump()
@@ -268,12 +317,6 @@ public class NetworkedPlayerController : MonoBehaviour
 		grounded = _grounded;
 	}
 
-	/*
-	public void NewRotation(float newRot)
-    {
-		this.transform.rotation = transform.rotation = Quaternion.Euler(transform.rotation.x, newRot, transform.rotation.z);
-	}
-	*/
 
 	public void Rotate(Vector3 newPOS)
 	{
@@ -281,31 +324,16 @@ public class NetworkedPlayerController : MonoBehaviour
 
 		Quaternion newRot = Quaternion.Euler(transform.rotation.x, newPOS.y, transform.rotation.z);
 		transform.rotation = Quaternion.Lerp(transform.rotation, newRot, 10 * lerpSpeed * Time.deltaTime);
-
-
-
-
-
-
-
-		/*
-			smooth = Time.deltaTime * durationTime;
-			Vector3 rotationDirection = new Vector3(transform.rotation.eulerAngles.x, newPOS.y, transform.rotation.eulerAngles.z);
-			transform.Rotate(rotationDirection * smooth);
-
-		*/
 	}
 
 
-	void UpdateAnimator()
-	{
-		anim.SetFloat(velocityHash, m_ForwardAmount);                                                               // update the velocity animator parameters
-		anim.SetFloat(turningHash, m_TurnAmount);                                                                   // update the turning animator parameters
-	}
+
+
+
 	public void UpdateCamPosition(PlayerCameraController.CameraPosition cam)
-    {
-		
-			 switch (cam)
+	{
+
+		switch (cam)
 		{
 			case PlayerCameraController.CameraPosition.FrontFacing:
 
@@ -336,10 +364,10 @@ public class NetworkedPlayerController : MonoBehaviour
 
 				break;
 			case PlayerCameraController.CameraPosition.OverShoulder:
-				
-		
+
+
 				Vector3 oldPOS = CameraPrefab.transform.position;
-				newPOS = new Vector3(this.gameObject.transform.position.x -10, this.gameObject.transform.position.y + 10, this.gameObject.transform.position.z );
+				newPOS = new Vector3(this.gameObject.transform.position.x - 10, this.gameObject.transform.position.y + 10, this.gameObject.transform.position.z);
 
 
 				//CameraPrefab.transform.position = Vector3.Lerp(CameraPrefab.transform.position, newPOS, Time.deltaTime );
@@ -347,18 +375,18 @@ public class NetworkedPlayerController : MonoBehaviour
 
 
 
-				Vector3 offset = new Vector3 (transform.position.x, transform.position.y + CamYOffset, transform.position.z) ;
+				Vector3 offset = new Vector3(transform.position.x, transform.position.y + CamYOffset, transform.position.z);
 				Vector3 newPOS2 = Vector3.Lerp(oldPOS, offset - -transform.forward * camFollowDistance, 0.1f);
 
 				CameraPrefab.transform.position = newPOS2;
 				CameraPrefab.transform.LookAt(transform.position);
-				
-/*
-				// Move
-				Vector3 newPosition = transform.position - transform.forward * offset.z - transform.up * offset.y;
-				CameraPrefab.transform.position = Vector3.Slerp(transform.position, newPosition, Time.deltaTime * speed);
 
-*/
+				/*
+								// Move
+								Vector3 newPosition = transform.position - transform.forward * offset.z - transform.up * offset.y;
+								CameraPrefab.transform.position = Vector3.Slerp(transform.position, newPosition, Time.deltaTime * speed);
+
+				*/
 
 
 
@@ -373,7 +401,7 @@ public class NetworkedPlayerController : MonoBehaviour
 
 
 				break;
-			
+
 			default:
 				print("Incorrect intelligence level.");
 				break;
@@ -392,8 +420,8 @@ public class NetworkedPlayerController : MonoBehaviour
 				float moveVertical = Input.GetAxis("Vertical");
 				Vector3 moveDir;
 
-				if (moveHorizontal >0.1f || moveHorizontal < 0)
-                {
+				if (moveHorizontal > 0.1f || moveHorizontal < 0)
+				{
 					Vector3 moveDirFrontFacing = new Vector3(0, 0, Input.GetAxisRaw("Horizontal")).normalized; //Lock movement to forward and back 
 
 					moveDir = moveDirFrontFacing;
@@ -408,13 +436,13 @@ public class NetworkedPlayerController : MonoBehaviour
 				}
 
 				else
-                {
+				{
 					moveDir = new Vector3(0, 0, Input.GetAxisRaw("Horizontal")).normalized;
 					return moveDir;
 				}
 
 				//Player Controls
-			
+
 
 
 				break;
@@ -424,7 +452,7 @@ public class NetworkedPlayerController : MonoBehaviour
 
 				//Player Controls
 
-				Vector3 moveDireOverShoulder = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized; 
+				Vector3 moveDireOverShoulder = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
 
 
 				//Player Controls
@@ -446,10 +474,7 @@ public class NetworkedPlayerController : MonoBehaviour
 				break;
 		}
 
+
+
 	}
-
-
-
-
-
-}
+	}
