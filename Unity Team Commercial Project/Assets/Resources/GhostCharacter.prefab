@@ -522,7 +522,9 @@ MonoBehaviour:
   walkSpeed: 9
   jumpForce: 750
   smoothTime: 0.15
-  speed: 5
+  movementSpeed: 5
+  rotationSpeed: 5
+  anim_walkSpeed: 2.95
   sneakHash: 0
   againstWallHash: 0
   grounded: 0
