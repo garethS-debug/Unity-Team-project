@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/ImportedAssets/3rdPerson+Fly/Scenes/3rdPerson+Fly.unity
+    path: 
     guid: edce6a3cd6b78e7459bd2864b9295f8c
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Levels/Level_01.unity
     guid: 95de9c3e4fa319a418b094130d696c61
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level_01_V2.unity
+    guid: c9f614aba7001164d93cab4472668c6b
   m_configObjects: {}
