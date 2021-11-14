@@ -18,7 +18,7 @@ public 	NetworkedPlayerController playerController;
 	{
 		if (other.gameObject == playerController.gameObject)
 			return;
-		Debug.Log("Hit !!");
+	//	Debug.Log("Hit !!");
 
 		playerController.SetGroundedState(true);
 	}
@@ -39,7 +39,7 @@ public 	NetworkedPlayerController playerController;
 		if (other.gameObject == playerController.gameObject)
 			return;
 
-		Debug.Log("Hit Continue  !!");
+		//Debug.Log("Hit Continue  !!");
 
 		playerController.SetGroundedState(true);
 	}

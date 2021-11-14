@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cam: {fileID: 0}
+  _netControll: {fileID: 0}
   CameraFlipAmount: 0
   CameraOverShoulder: 0
   CameraFrontFacing: 0

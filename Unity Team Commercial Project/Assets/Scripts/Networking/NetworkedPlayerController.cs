@@ -79,11 +79,29 @@ public class NetworkedPlayerController : MonoBehaviour
 	Camera CameraPrefab;
 	[HideInInspector] public PlayerCameraController _camControll;
 	Vector3 newPOS;
+	public float CamXOffset = 0.0f;
 	public float CamYOffset = 10.0f;
 	public float CamZOffset = 5.0f;
 	public float camFollowDistance = 10.0f;
 	[Range(0.1f, 1.0f)]
 	public float camSmoothing = 0.1f;
+
+	[Header("LobbySettings")]
+	[HideInInspector] public bool isInLobby = false;
+
+
+
+	/// <summary>
+	/// TO DO :
+	/// 
+	/// Either neeed to 
+	/// reset 'keys' in relation to player orientation trelatie to the world
+	/// Resetting player movement based on rotation
+	/// 
+	/// + Camera moving away from buildings
+	/// </summary>
+	/// <param name="move"></param>
+
 
 
 
@@ -119,23 +137,40 @@ public class NetworkedPlayerController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-
-		if (!PV.IsMine)
-		{
-			if (GetComponentInChildren<Camera>() != null)
-			{
-				Destroy(GetComponentInChildren<Camera>().gameObject);
-			}
-
-		}
-
-		if (PV.IsMine)
-		{
+		if (isInLobby)
+        {
 			CameraPrefab = Instantiate(camPrefab, this.transform.position, camPrefab.transform.rotation);
 			//Camera
 			_camControll = CameraPrefab.GetComponent<PlayerCameraController>();
 			_camControll._netControll = this.gameObject.GetComponent<NetworkedPlayerController>();
+
+			CamXOffset = 13.58f;
+			CamYOffset = 10.1f;
+			CamZOffset = 19.07f;
+			camFollowDistance = -16.87f;
+
 		}
+
+		if (isInLobby == false)
+        {
+			if (!PV.IsMine)
+			{
+				if (GetComponentInChildren<Camera>() != null)
+				{
+					Destroy(GetComponentInChildren<Camera>().gameObject);
+				}
+
+			}
+
+			if (PV.IsMine)
+			{
+				CameraPrefab = Instantiate(camPrefab, this.transform.position, camPrefab.transform.rotation);
+				//Camera
+				_camControll = CameraPrefab.GetComponent<PlayerCameraController>();
+				_camControll._netControll = this.gameObject.GetComponent<NetworkedPlayerController>();
+			}
+		}
+	
 
 		//Instantiate(camPrefab, camPrefab.GetComponent<PlayerCameraController>().FrontFacingPOS, Quaternion.identity);
 
@@ -165,10 +200,14 @@ public class NetworkedPlayerController : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (!PV.IsMine)
-		{
-			return;
+		if (isInLobby == false)
+        {
+			if (!PV.IsMine)
+			{
+				return;
+			}
 		}
+		
 
 		//Existing Movement Script
 		//m_Rigidbody.MovePosition(m_Rigidbody.position + transform.TransformDirection(movementWithInversion) * Time.fixedDeltaTime);
@@ -232,6 +271,9 @@ public class NetworkedPlayerController : MonoBehaviour
 		anim.SetFloat(velocityHash, m_ForwardAmount);                                                               // update the velocity animator parameters
 		anim.SetFloat(turningHash, m_TurnAmount);                                                                   // update the turning animator parameters
 	}
+
+
+
 
 
 
@@ -350,7 +392,7 @@ public class NetworkedPlayerController : MonoBehaviour
 				*/
 
 				Vector3 oldPOs = CameraPrefab.transform.position;
-				Vector3 offset1 = new Vector3(transform.position.x, transform.position.y + CamYOffset, transform.position.z - CamZOffset);
+				Vector3 offset1 = new Vector3(transform.position.x + CamXOffset, transform.position.y + CamYOffset, transform.position.z - CamZOffset);
 
 				Vector3 newPOS1 = Vector3.Lerp(oldPOs, offset1 - transform.right * camFollowDistance, 0.1f);
 

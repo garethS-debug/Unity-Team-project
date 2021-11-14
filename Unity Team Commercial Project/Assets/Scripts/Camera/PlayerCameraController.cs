@@ -46,7 +46,7 @@ public class PlayerCameraController : MonoBehaviour
 
         //   FrontFacingPOS = _cam.transform.localPosition; //testing
 
-        print("Player ROT : " + this.transform.eulerAngles.y);
+       // print("Player ROT : " + this.transform.eulerAngles.y);
 
         newPOS = FrontFacingPOS;
 
@@ -85,7 +85,7 @@ public class PlayerCameraController : MonoBehaviour
         CameraOverShoulder = true;
         CameraFrontFacing = false;
 
-        print("Setting over the shoulder");
+    //    print("Setting over the shoulder");
         // _cam.transform.localPosition = OverShoulderPOS;
         // _cam.transform.LookAt(this.gameObject.transform);
         newPOS = OverShoulderPOS;
@@ -106,7 +106,7 @@ public class PlayerCameraController : MonoBehaviour
         //Camera Rotation
 
 
-        print("Setting front Facing");
+     //   print("Setting front Facing");
 
         CameraFrontFacing = true;
         CameraOverShoulder = false;
