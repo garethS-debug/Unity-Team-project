@@ -86,6 +86,8 @@ public class NetworkedPlayerController : MonoBehaviour
 	[Range(0.1f, 1.0f)]
 	public float camSmoothing = 0.1f;
 
+	public GameObject cameraTargetOnSpawn;
+
 	[Header("LobbySettings")]
 	[HideInInspector] public bool isInLobby = false;
 
@@ -102,7 +104,13 @@ public class NetworkedPlayerController : MonoBehaviour
 	/// </summary>
 	/// <param name="move"></param>
 
+	//Testing
+	GameObject target;
+	public float speedMove4;
 
+	//Vector3 lastPos;
+	//public Transform objToMonitor; // drag the object to monitor here
+	//float threshold = 0.0f; // minimum displacement to recognize a 
 
 
 	private void Awake()
@@ -130,7 +138,8 @@ public class NetworkedPlayerController : MonoBehaviour
 		//Photon
 		PV = GetComponent<PhotonView>();
 
-		//	UpdateCamPosition(PlayerCameraController.CameraPosition.FrontFacing);
+		//	testing
+		
 
 	}
 
@@ -148,6 +157,11 @@ public class NetworkedPlayerController : MonoBehaviour
 			CamYOffset = 10.1f;
 			CamZOffset = 19.07f;
 			camFollowDistance = -16.87f;
+
+			CameraPrefab.gameObject.transform.parent = this.transform;
+			CameraPrefab.gameObject.transform.position = cameraTargetOnSpawn.transform.position;
+			//Display the parent's name in the console.
+		//	Debug.Log("Player's Parent: " + CameraPrefab.gameObject.transform.parent.name);
 
 		}
 
@@ -168,6 +182,11 @@ public class NetworkedPlayerController : MonoBehaviour
 				//Camera
 				_camControll = CameraPrefab.GetComponent<PlayerCameraController>();
 				_camControll._netControll = this.gameObject.GetComponent<NetworkedPlayerController>();
+
+				CameraPrefab.gameObject.transform.parent = this.transform;
+				CameraPrefab.gameObject.transform.position = cameraTargetOnSpawn.transform.position;
+				
+				CameraPrefab.gameObject.transform.LookAt(this.gameObject.transform);
 			}
 		}
 	
@@ -176,6 +195,7 @@ public class NetworkedPlayerController : MonoBehaviour
 
 		MovementInversion = 1;
 
+		//lastPos = this.transform.position;
 
 	}
 
@@ -212,7 +232,37 @@ public class NetworkedPlayerController : MonoBehaviour
 		//Existing Movement Script
 		//m_Rigidbody.MovePosition(m_Rigidbody.position + transform.TransformDirection(movementWithInversion) * Time.fixedDeltaTime);
 
+		//Move 3 is the current edition 
 		Move3();
+
+		
+
+	}
+
+
+
+	public void Move4 ()
+    {
+		// player movement - forward, backward, left, right
+		float horizontal = Input.GetAxis("Horizontal") * speedMove4;
+		float vertical = Input.GetAxis("Vertical") * speedMove4;
+		
+		Vector3 camRightFlat = new Vector3(CameraPrefab.gameObject.transform.right.x, 0f, CameraPrefab.gameObject.transform.right.z).normalized;
+
+		Vector3 camForwardFlat = new Vector3(CameraPrefab.gameObject.transform.forward.x, 0f, CameraPrefab.gameObject.transform.forward.z).normalized;
+
+		this.transform.Translate((camRightFlat * horizontal + camForwardFlat * vertical) * Time.deltaTime);
+
+		//Rotation of Character
+
+
+		//Rotation of Character
+		
+			Quaternion toRotation = Quaternion.LookRotation(camForwardFlat, Vector3.up);
+
+			transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+
+
 		UpdateCamPosition(_camControll.myDirection);
 
 	}
@@ -230,13 +280,15 @@ public class NetworkedPlayerController : MonoBehaviour
 
 		float normalDirection = movementDirection.magnitude;
 
-		//	print("normal direction : " + normalDirection * movementSpeed* 2 * Time.deltaTime);
-		//Movement of Character
+		//Movement speed of Character
 
 		movementSpeed = Mathf.Lerp(movementSpeed, (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), smoothTime);
 
+		Vector3 worldInputMovement = transform.TransformDirection(movementDirection.normalized);
+		//rigidbody.AddForce(worldInputMovement * moveSpeed * Time.deltaTime);
 
-		transform.Translate(movementDirection * movementSpeed * Time.deltaTime, Space.World);
+		//Move the character
+		transform.Translate(worldInputMovement * movementSpeed * Time.deltaTime, Space.World);
 
 
 		//Rotation of Character
@@ -246,8 +298,6 @@ public class NetworkedPlayerController : MonoBehaviour
 
 			transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
 		}
-
-		//float test = movementDirection.Normalize();
 
 
 		if (verticalInput == 0 && horizontalInput ==0 )
@@ -264,6 +314,8 @@ public class NetworkedPlayerController : MonoBehaviour
 	//	print(m_ForwardAmount);
 
 		UpdateAnimator();                                                                               //Update the aniumation 
+
+		UpdateCamPosition(_camControll.myDirection);
 	}
 
 	void UpdateAnimator()
@@ -380,23 +432,40 @@ public class NetworkedPlayerController : MonoBehaviour
 			case PlayerCameraController.CameraPosition.FrontFacing:
 
 				/*
-				Vector3 oldPOs = CameraPrefab.transform.position;
-				 newPOS = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y + 5, this.gameObject.transform.position.z - 15);
+
+					Vector3 oldPOs = CameraPrefab.transform.position;
+					Vector3 offset1 = new Vector3(transform.position.x + CamXOffset, transform.position.y + CamYOffset, transform.position.z - CamZOffset);
+
+					Vector3 newPOS1 = Vector3.Lerp(oldPOs, offset1 - transform.right * camFollowDistance, 0.1f);
 
 
-				//CameraPrefab.transform.localPosition = new Vector3 (this.gameObject.transform.position.x, this.gameObject.transform.position.y + 5, this.gameObject.transform.position.z - 15) ;
 
-				CameraPrefab.transform.position =  Vector3.Lerp(oldPOs, newPOS, 10);
-				CameraPrefab.transform.LookAt(this.gameObject.transform);
-	
-				*/
+					//Change in Position 
 
-				Vector3 oldPOs = CameraPrefab.transform.position;
-				Vector3 offset1 = new Vector3(transform.position.x + CamXOffset, transform.position.y + CamYOffset, transform.position.z - CamZOffset);
 
-				Vector3 newPOS1 = Vector3.Lerp(oldPOs, offset1 - transform.right * camFollowDistance, 0.1f);
+
+					Vector3 offsetToCheck = objToMonitor.position - lastPos;
+					if (offsetToCheck.x > threshold)
+					{
+						lastPos = objToMonitor.position; // update lastPos
+						print("// code to execute when X is getting bigger : " );                         // code to execute when X is getting bigger
+					}
+					else
+					if (offsetToCheck.x < -threshold)
+					{
+						lastPos = objToMonitor.position; // update lastPos
+						print(" // code to execute when X is getting smaller  : " );                   // code to execute when X is getting smaller 
+					}
+
+				//TESTING
+
+
 
 				CameraPrefab.transform.position = newPOS1;
+
+						*/
+
+
 				CameraPrefab.transform.LookAt(transform.position);
 
 
@@ -407,31 +476,20 @@ public class NetworkedPlayerController : MonoBehaviour
 				break;
 			case PlayerCameraController.CameraPosition.OverShoulder:
 
-
-				Vector3 oldPOS = CameraPrefab.transform.position;
-				newPOS = new Vector3(this.gameObject.transform.position.x - 10, this.gameObject.transform.position.y + 10, this.gameObject.transform.position.z);
-
-
-				//CameraPrefab.transform.position = Vector3.Lerp(CameraPrefab.transform.position, newPOS, Time.deltaTime );
-				//CameraPrefab.transform.localPosition = new Vector3(this.gameObject.transform.position.x - 15, this.gameObject.transform.position.y + 5, this.gameObject.transform.position.z);
-
-
-
-				Vector3 offset = new Vector3(transform.position.x, transform.position.y + CamYOffset, transform.position.z);
-				Vector3 newPOS2 = Vector3.Lerp(oldPOS, offset - -transform.forward * camFollowDistance, 0.1f);
-
-				CameraPrefab.transform.position = newPOS2;
-				CameraPrefab.transform.LookAt(transform.position);
-
 				/*
-								// Move
-								Vector3 newPosition = transform.position - transform.forward * offset.z - transform.up * offset.y;
-								CameraPrefab.transform.position = Vector3.Slerp(transform.position, newPosition, Time.deltaTime * speed);
+			Vector3 oldPOS = CameraPrefab.transform.position;
+			newPOS = new Vector3(this.gameObject.transform.position.x - 10, this.gameObject.transform.position.y + 10, this.gameObject.transform.position.z);
+
+			Vector3 offset = new Vector3(transform.position.x, transform.position.y + CamYOffset, transform.position.z);
+			Vector3 newPOS2 = Vector3.Lerp(oldPOS, offset - -transform.forward * camFollowDistance, 0.1f);
+
+			print("OverShoulder Vector Difference in Cam : " + (oldPOS - newPOS2));
+
+
+			CameraPrefab.transform.position = newPOS2;
+			CameraPrefab.transform.LookAt(transform.position);
 
 				*/
-
-
-
 				CameraPrefab.transform.LookAt(this.gameObject.transform);
 
 
@@ -519,4 +577,13 @@ public class NetworkedPlayerController : MonoBehaviour
 
 
 	}
+
+	void OnDrawGizmosSelected()
+	{
+		// Draws a 5 unit long red line in front of the object
+		Gizmos.color = Color.red;
+		Vector3 direction = transform.TransformDirection(Vector3.forward) * 100;
+		Gizmos.DrawRay(transform.position, direction);
 	}
+
+}

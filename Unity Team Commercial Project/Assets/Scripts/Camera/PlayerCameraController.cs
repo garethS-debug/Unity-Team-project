@@ -15,8 +15,8 @@ public class PlayerCameraController : MonoBehaviour
     public float CameraFlipAmount;
     public bool CameraOverShoulder, CameraFrontFacing;
 
-    public Vector3 OverShoulderPOS;
-    public Vector3 FrontFacingPOS; // startingPOS
+    //public Vector3 OverShoulderPOS;
+   // public Vector3 FrontFacingPOS; // startingPOS
 
     public float lerpSpeed = 0.5f;
 
@@ -48,7 +48,7 @@ public class PlayerCameraController : MonoBehaviour
 
        // print("Player ROT : " + this.transform.eulerAngles.y);
 
-        newPOS = FrontFacingPOS;
+       // newPOS = FrontFacingPOS;
 
 
         myDirection = CameraPosition.FrontFacing;
@@ -88,7 +88,7 @@ public class PlayerCameraController : MonoBehaviour
     //    print("Setting over the shoulder");
         // _cam.transform.localPosition = OverShoulderPOS;
         // _cam.transform.LookAt(this.gameObject.transform);
-        newPOS = OverShoulderPOS;
+      //  newPOS = OverShoulderPOS;
         _cam.transform.LookAt(this.gameObject.transform);
 
         //Player 
@@ -113,7 +113,7 @@ public class PlayerCameraController : MonoBehaviour
 
         // _cam.transform.localPosition = FrontFacingPOS;
         // _cam.transform.LookAt(this.gameObject.transform);
-        newPOS = FrontFacingPOS;
+      //  newPOS = FrontFacingPOS;
         _cam.transform.LookAt(this.gameObject.transform);
 
         //Player Rotation
