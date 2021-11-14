@@ -29,7 +29,7 @@ public 	NetworkedPlayerController playerController;
 		if (other.gameObject == playerController.gameObject)
 			return;
 
-		Debug.Log("Exit ground !!");
+	//	Debug.Log("Exit ground !!");
 
 		playerController.SetGroundedState(false);
 	}

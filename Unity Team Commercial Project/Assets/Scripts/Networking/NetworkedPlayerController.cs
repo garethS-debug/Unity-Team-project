@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-[RequireComponent(typeof(Rigidbody))]
+
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(CharacterController))]
+
+
 
 
 public class NetworkedPlayerController : MonoBehaviour
@@ -15,14 +18,14 @@ public class NetworkedPlayerController : MonoBehaviour
 	[HideInInspector] public Animator anim;                                                                                 //Anim settings
 
 
-	[Header("Idle Anim Settings")]
-	float idleAnimFloat;                                                                            //IDLE ANIM BLEND TREE - float variable
-	int IdleHash;                                                                                   //Idle anim hash code
+	////[Header("Idle Anim Settings")]
+	//float idleAnimFloat;                                                                            //IDLE ANIM BLEND TREE - float variable
+	//int IdleHash;                                                                                   //Idle anim hash code
 
 	[Header("Velocity Anim Settings")]
 	int velocityHash;                                                                               //movement anim hash code	
-	float vlocityFloat;
-	Vector3 playerVector;
+	//float vlocityFloat;
+	//Vector3 playerVector;
 	public float DampTime = 1.1f;                                                                           //Animation dampining time
 
 	[Header("Turning  Settings")]
@@ -30,45 +33,45 @@ public class NetworkedPlayerController : MonoBehaviour
 	public bool turning;
 
 	[Header("Movement Settings")]
-	private float hDirection;
-	private float vDirection;
-	[SerializeField] private Rigidbody m_Rigidbody;
+	//private float hDirection;
+	//private float vDirection;
+	//[SerializeField] private Rigidbody m_Rigidbody;
 	[SerializeField] private CapsuleCollider m_Capsule;
-	public float rotSpeed = 5f;
+	//public float rotSpeed = 5f;
 	[SerializeField] float m_TurnAmount;
 	float m_ForwardAmount;
-	Vector3 m_GroundNormal;
+//	Vector3 m_GroundNormal;
 	private Vector3 m_Move;                   // the world-relative desired move direction, calculated from the camForward and user input.
 
-	[Header("New Move Settings")]
-	Vector3 moveAmount;
-	[SerializeField] float mouseSensitivity, sprintSpeed, walkSpeed, jumpForce, smoothTime;
-	Vector3 smoothMoveVelocity;
-
-	[Header("Speed Settings")]
-	public float movementSpeed = 5f;
-	public float rotationSpeed = 5f;
-	[Range(1,8)] 
-	public float anim_walkSpeed;
-
-	[Header("Sneak Settings")]
-	[HideInInspector] public int sneakHash;
-	[HideInInspector] public int againstWallHash;
-
-
-
-	[Header("Jump Settings")]
+	[Header("Jumping")]
+	private float verticalVelocity;
+	public float gravity = 15.0f;
+	public float JumpForce = 10.0f;
+	public KeyCode JumpInput = KeyCode.Space;
 	[SerializeField] bool grounded;
+	//	Vector3 smoothMoveVelocity;
+	int jumpHash;
+	float jumpDirForward; //-1 is Backwards, +1 is Forwards
+	float jumpDirLeftRight; //-1 is Backwards, +1 is Forwards
+
+	//[Header("Sneak Settings")]
+	//[HideInInspector] public int sneakHash;
+	//[HideInInspector] public int againstWallHash;
+
+
+
+
+
 
 	[Header("Photon Settings")]
 	PhotonView PV;
 
-	[Header("CameraInverstion")]
-	public int MovementInversion = 1;
-	Vector3 movementWithInversion;
+	//[Header("CameraInverstion")]
+	//public int MovementInversion = 1;
+	//Vector3 movementWithInversion;
 
 	[Header("Rotation")]
-	Vector3 currentROT;
+	//Vector3 currentROT;
 	[HideInInspector] public Vector3 toRot;
 	public float lerpSpeed = 0.5f;
 	public float durationTime;
@@ -78,15 +81,15 @@ public class NetworkedPlayerController : MonoBehaviour
 	public Camera camPrefab;
 	Camera CameraPrefab;
 	[HideInInspector] public PlayerCameraController _camControll;
-	Vector3 newPOS;
-	public float CamXOffset = 0.0f;
-	public float CamYOffset = 10.0f;
-	public float CamZOffset = 5.0f;
-	public float camFollowDistance = 10.0f;
-	[Range(0.1f, 1.0f)]
-	public float camSmoothing = 0.1f;
+	//Vector3 newPOS;
+	//public float CamXOffset = 0.0f;
+	//public float CamYOffset = 10.0f;
+	//public float CamZOffset = 5.0f;
+	//public float camFollowDistance = 10.0f;
+	//[Range(0.1f, 1.0f)]
+	//public float camSmoothing = 0.1f;
 
-	public GameObject cameraTargetOnSpawn;
+	//public GameObject cameraTargetOnSpawn;
 
 	[Header("LobbySettings")]
 	[HideInInspector] public bool isInLobby = false;
@@ -112,34 +115,52 @@ public class NetworkedPlayerController : MonoBehaviour
 	//public Transform objToMonitor; // drag the object to monitor here
 	//float threshold = 0.0f; // minimum displacement to recognize a 
 
+	[Header("NewPLayerMovement")]
+	public CharacterController controller;              //Motor that drives the player
+	public KeyCode SprintInput = KeyCode.LeftShift;
+	public Transform cam;
+	[Range(0, 1)]
+	public float turnSmoothTime = 0.1f;
+	float turnSmoothvelocity;
+
+	[Header("Speed Settings")]
+	//public float rotationSpeed = 5f;
+	[Range(1, 8)]
+	public float anim_walkSpeed;
+		[SerializeField] float  sprintSpeed, walkspeed = 8f , smoothTime;
+	private float movementSpeed;
+
+
+
+
 
 	private void Awake()
 	{
 
 		//Settings 
 		anim = this.gameObject.GetComponent<Animator>();                                            //Get reference to the animator
-		m_Rigidbody = GetComponent<Rigidbody>();
+	//	m_Rigidbody = GetComponent<Rigidbody>();
 		m_Capsule = GetComponent<CapsuleCollider>();
 
 		//Animation
 		//Ide setup
-		IdleHash = Animator.StringToHash("Idle_Float");                                             //Hash number for idle 
+	//	IdleHash = Animator.StringToHash("Idle_Float");                                             //Hash number for idle 
 
 
 		//Movement Setup
 		velocityHash = Animator.StringToHash("anim_velocity");                                      //Hash number for velocity  
-																									//Turning
+		jumpHash = Animator.StringToHash("anim_JumpFloat");
 		turningHash = Animator.StringToHash("anim_turn");                                      //Hash number for turning   
 
 		//sneak
-		sneakHash = Animator.StringToHash("anim_sneak");                                      //Hash number for turning    
-		againstWallHash = Animator.StringToHash("anim_isAgainstWall");                                      //Hash number for turning   
+		//sneakHash = Animator.StringToHash("anim_sneak");                                      //Hash number for turning    
+	//	againstWallHash = Animator.StringToHash("anim_isAgainstWall");                                      //Hash number for turning   
 
 		//Photon
 		PV = GetComponent<PhotonView>();
 
-		//	testing
-		
+		//	controller
+		controller = this.gameObject.GetComponent<CharacterController>();
 
 	}
 
@@ -151,22 +172,17 @@ public class NetworkedPlayerController : MonoBehaviour
 			CameraPrefab = Instantiate(camPrefab, this.transform.position, camPrefab.transform.rotation);
 			//Camera
 			_camControll = CameraPrefab.GetComponent<PlayerCameraController>();
-			_camControll._netControll = this.gameObject.GetComponent<NetworkedPlayerController>();
-
-			CamXOffset = 13.58f;
-			CamYOffset = 10.1f;
-			CamZOffset = 19.07f;
-			camFollowDistance = -16.87f;
-
-			CameraPrefab.gameObject.transform.parent = this.transform;
-			CameraPrefab.gameObject.transform.position = cameraTargetOnSpawn.transform.position;
+			_camControll.parent = this.gameObject;
+			cam = CameraPrefab.gameObject.transform;
 			//Display the parent's name in the console.
-		//	Debug.Log("Player's Parent: " + CameraPrefab.gameObject.transform.parent.name);
-
+			//	Debug.Log("Player's Parent: " + CameraPrefab.gameObject.transform.parent.name);
+			controller = this.gameObject.GetComponent<CharacterController>();
 		}
 
 		if (isInLobby == false)
         {
+
+			//If multiplayer and not my game object
 			if (!PV.IsMine)
 			{
 				if (GetComponentInChildren<Camera>() != null)
@@ -181,19 +197,17 @@ public class NetworkedPlayerController : MonoBehaviour
 				CameraPrefab = Instantiate(camPrefab, this.transform.position, camPrefab.transform.rotation);
 				//Camera
 				_camControll = CameraPrefab.GetComponent<PlayerCameraController>();
-				_camControll._netControll = this.gameObject.GetComponent<NetworkedPlayerController>();
+				_camControll.parent = this.gameObject;
 
-				CameraPrefab.gameObject.transform.parent = this.transform;
-				CameraPrefab.gameObject.transform.position = cameraTargetOnSpawn.transform.position;
-				
-				CameraPrefab.gameObject.transform.LookAt(this.gameObject.transform);
+				cam = CameraPrefab.gameObject.transform;
+				controller = this.gameObject.GetComponent<CharacterController>();
 			}
 		}
 	
 
 		//Instantiate(camPrefab, camPrefab.GetComponent<PlayerCameraController>().FrontFacingPOS, Quaternion.identity);
 
-		MovementInversion = 1;
+		//MovementInversion = 1;
 
 		//lastPos = this.transform.position;
 
@@ -204,7 +218,7 @@ public class NetworkedPlayerController : MonoBehaviour
 	{
 
 		//Move();
-		Jump();
+	
 
 		//this wont allow for backwards movement
 		//Rotate(toRot);
@@ -233,42 +247,72 @@ public class NetworkedPlayerController : MonoBehaviour
 		//m_Rigidbody.MovePosition(m_Rigidbody.position + transform.TransformDirection(movementWithInversion) * Time.fixedDeltaTime);
 
 		//Move 3 is the current edition 
-		Move3();
-
+		Move5();
+		Jump();
 		
-
+	
 	}
 
 
 
-	public void Move4 ()
+	public void Move5()
     {
-		// player movement - forward, backward, left, right
-		float horizontal = Input.GetAxis("Horizontal") * speedMove4;
-		float vertical = Input.GetAxis("Vertical") * speedMove4;
+		float horizontalInput = Input.GetAxisRaw("Horizontal"); //-1 and +1 (-1 for left , + 1 for right)
+		float verticalInput = Input.GetAxisRaw("Vertical"); // -1 and +1  (+ 1 up, - 1 down) 
+
+		Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
+
+		if (direction.magnitude >= 0.1)
+		{
+			float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y; //How much to rotate the player on the y axis to point in the movement direction. ATan2 is a math function that returns an angle between the x axis and an angle starting 0 and terminating at x,y taking into account unity forward 
+			float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothvelocity, turnSmoothTime); //Smoothed angle of rotaiton 
+
+			transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+
+			movementSpeed = Mathf.Lerp(movementSpeed, (Input.GetKey(SprintInput) ? sprintSpeed : walkspeed), smoothTime);
+
+			
+			Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;        //move in direction of camera
+			controller.Move(moveDir.normalized * movementSpeed * Time.deltaTime);
+
+
+			//m_TurnAmount = Mathf.Atan2(movementDirection.x, movementDirection.z);                                                                     //Return value is the angle between the x-axis and a 2D vector starting at zero and terminating at (x,y).
+			float normalDirection = moveDir.magnitude;
+			m_ForwardAmount = Mathf.Lerp(m_ForwardAmount, normalDirection * movementSpeed * anim_walkSpeed * Time.deltaTime, lerpSpeed * Time.deltaTime * 10);
+
+
+			 jumpDirForward = moveDir.normalized.z; //-1 is Backwards, +1 is Forwards
+			 jumpDirLeftRight = moveDir.normalized.x; //-1 is Backwards, +1 is Forwards
+
+		//	print("Move Dir Forward" + moveDir.normalized.z + "Move Dir Side" + moveDir.normalized.x);
 		
-		Vector3 camRightFlat = new Vector3(CameraPrefab.gameObject.transform.right.x, 0f, CameraPrefab.gameObject.transform.right.z).normalized;
-
-		Vector3 camForwardFlat = new Vector3(CameraPrefab.gameObject.transform.forward.x, 0f, CameraPrefab.gameObject.transform.forward.z).normalized;
-
-		this.transform.Translate((camRightFlat * horizontal + camForwardFlat * vertical) * Time.deltaTime);
-
-		//Rotation of Character
 
 
-		//Rotation of Character
-		
-			Quaternion toRotation = Quaternion.LookRotation(camForwardFlat, Vector3.up);
+			//	jumpDir = 
+			//	print(m_ForwardAmount);
 
-			transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+			UpdateAnimator();                                                                               //Update the aniumation 
 
+		}
 
-		UpdateCamPosition(_camControll.myDirection);
-
+		else
+        {
+			m_ForwardAmount = 0;
+			m_TurnAmount = 0;
+			UpdateAnimator();
+		}
 	}
 
 
 
+
+	/// <summary>
+	/// DEPRECEATED 
+	/// </summary>
+	/// 
+
+	/*
 	public void Move3()
 	{
 		float horizontalInput = Input.GetAxis("Horizontal");
@@ -284,11 +328,7 @@ public class NetworkedPlayerController : MonoBehaviour
 
 		movementSpeed = Mathf.Lerp(movementSpeed, (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), smoothTime);
 
-		Vector3 worldInputMovement = transform.TransformDirection(movementDirection.normalized);
-		//rigidbody.AddForce(worldInputMovement * moveSpeed * Time.deltaTime);
-
-		//Move the character
-		transform.Translate(worldInputMovement * movementSpeed * Time.deltaTime, Space.World);
+	
 
 
 		//Rotation of Character
@@ -306,6 +346,13 @@ public class NetworkedPlayerController : MonoBehaviour
 
 		}
 
+		//transform the input direction from the player's local space to world space,
+		//Vector3 worldInputMovement = transform.TransformDirection(movementDirection.normalized);
+
+
+		//Move the character
+		transform.Translate(movementDirection * movementSpeed * Time.deltaTime, Space.World);
+
 		//m_TurnAmount = Mathf.Atan2(movementDirection.x, movementDirection.z);                                                                     //Return value is the angle between the x-axis and a 2D vector starting at zero and terminating at (x,y).
 
 		m_ForwardAmount = Mathf.Lerp(m_ForwardAmount, normalDirection * movementSpeed * anim_walkSpeed * Time.deltaTime, lerpSpeed * Time.deltaTime * 10);
@@ -317,7 +364,7 @@ public class NetworkedPlayerController : MonoBehaviour
 
 		UpdateCamPosition(_camControll.myDirection);
 	}
-
+	*/
 	void UpdateAnimator()
 	{
 		anim.SetFloat(velocityHash, m_ForwardAmount);                                                               // update the velocity animator parameters
@@ -329,80 +376,121 @@ public class NetworkedPlayerController : MonoBehaviour
 
 
 
-	public void Move2(Vector3 move)
-	{
 
-		playerVector = new Vector3(-move.x * anim_walkSpeed, 0, -move.z * anim_walkSpeed);                                                //Players vector
-		m_TurnAmount = Mathf.Atan2(move.x, move.z);                                                                     //Return value is the angle between the x-axis and a 2D vector starting at zero and terminating at (x,y).
-		float absTurn = Mathf.Abs(m_TurnAmount);                                                                            //Get the absolute number of the turning
-
-		move = transform.InverseTransformDirection(playerVector);                                                       //Transforms a direction from world space to local space.
-		m_ForwardAmount = move.z;
-		m_TurnAmount = Mathf.Atan2(move.x, move.z);
-		float turnSpeed = Mathf.Lerp(180, 360, m_ForwardAmount);
-
-		transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
-
-		//Update animation
-		//UpdateAnimator(playerVector);                                                                               //Update the aniumation 
-		//anim.SetFloat(velocityHash, idleAnimFloat);																//convert to single velocity number	
-		// Transorm ROT or Quat Rot check
-		if (absTurn < 0.1f && ThirdPersonCoverSystem.Instance.leaningAgainstWall == false /*angle < 0.1f */ )
-		{
-			//Moving
-			m_Rigidbody.velocity = playerVector;                                                                        //Move the character
-		}
-
-	}
-
-	/*
-
-	void Move()
-	{
-		print("VECTOR 3 : " + UpdateControlPosition(_camControll.myDirection));
-
-		//Animator
-		float hDirection = Input.GetAxis("Horizontal");
-		float vDirection = Input.GetAxis("Vertical");
-
-
-		//	Vector3 moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
-		Vector3 moveDir = UpdateControlPosition(_camControll.myDirection);
-		print("move DIR Hor: " + hDirection + "move Dir Vir:" + vDirection);
-
-
-
-		moveAmount = Vector3.SmoothDamp(moveAmount, moveDir * (Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed), ref smoothMoveVelocity, smoothTime);
-		movementWithInversion = new Vector3(moveAmount.x * MovementInversion, moveAmount.y * MovementInversion, moveAmount.z * MovementInversion);
-
-		//print("MoveDir = " + moveAmount + "MoveDir Inverted : " + movementWithInversion);
-
-
-
-
-
-		m_TurnAmount = Mathf.Atan2(moveDir.x, moveDir.z);                                                                     //Return value is the angle between the x-axis and a 2D vector starting at zero and terminating at (x,y).
-		m_ForwardAmount = moveDir.z;
-	
-
-
-		UpdateAnimator();                                                                               //Update the aniumation 
-	}
-
-	*/
 
 
 	void Jump()
 	{
-		if (!PV.IsMine)
+
+
+		if (isInLobby == true)
 		{
-			return;
+			if (controller.isGrounded)
+			{
+				verticalVelocity = -gravity * Time.deltaTime;
+
+				if (Input.GetKey(JumpInput))
+				{
+					verticalVelocity = JumpForce;
+					anim.SetBool("anim_Jumping", true); // Set jumping 
+					
+					if (jumpDirForward == 0 && jumpDirLeftRight == 0)
+                    {
+						anim.SetFloat(jumpHash, 0);
+					}
+
+					if (jumpDirForward > 0 && jumpDirLeftRight <= 0)
+                    {
+						//	print("Jump foward " + jumpDirForward );
+						anim.SetFloat(jumpHash, 1);
+					}
+
+					if ( jumpDirForward < 0 && jumpDirLeftRight >= 0)
+                    {
+						//print("Jump Backwards " + jumpDirForward);
+						anim.SetFloat(jumpHash, 1);
+					}
+
+					if (jumpDirLeftRight > 0 && jumpDirForward >= 0)
+					{
+						//print("Jump Side - forward " + jumpDirLeftRight);
+						anim.SetFloat(jumpHash, 1);
+					}
+
+					if (jumpDirLeftRight < 0 && jumpDirForward <= 0)
+					{
+						//print("Jump Side - forward " + jumpDirLeftRight);
+						anim.SetFloat(jumpHash, 1);
+					}
+
+
+					//	anim.SetFloat(jumpHash, );
+
+				}
+			}
+
+			else
+			{
+				verticalVelocity -= gravity * Time.deltaTime;
+				anim.SetBool("anim_Jumping", false); // Set jumping 
+			}
+
+			Vector3 jumpvector = new Vector3(0, verticalVelocity, 0);
+			controller.Move(jumpvector * Time.deltaTime);
+			/*
+					if (Input.GetKeyDown(JumpInput) && grounded)
+					{
+					//	m_Rigidbody.AddForce(transform.up * jumpForce);
+					}
+
+					*/
 		}
 
-		if (Input.GetKeyDown(KeyCode.Space) && grounded)
+		if (isInLobby == false)
 		{
-			m_Rigidbody.AddForce(transform.up * jumpForce);
+
+			//If multiplayer and not my game object
+			if (!PV.IsMine)
+			{
+				return;
+			}
+
+			if (PV.IsMine)
+			{
+				if (controller.isGrounded)
+				{
+					verticalVelocity = -gravity * Time.deltaTime;
+
+					if (Input.GetKey(JumpInput))
+					{
+						verticalVelocity = JumpForce;
+						anim.SetBool("anim_Jumping", true); // Set jumping 
+
+
+					
+
+					//	anim.SetFloat(jumpHash, );
+					}
+				}
+
+				else
+				{
+					verticalVelocity -= gravity * Time.deltaTime;
+				}
+
+				Vector3 jumpvector = new Vector3(0, verticalVelocity, 0);
+				controller.Move(jumpvector * Time.deltaTime);
+				/*
+						if (Input.GetKeyDown(JumpInput) && grounded)
+						{
+						//	m_Rigidbody.AddForce(transform.up * jumpForce);
+						}
+
+						*/
+			}
 		}
+
+
 	}
 
 
@@ -412,13 +500,6 @@ public class NetworkedPlayerController : MonoBehaviour
 	}
 
 
-	public void Rotate(Vector3 newPOS)
-	{
-		currentROT = transform.localPosition;
-
-		Quaternion newRot = Quaternion.Euler(transform.rotation.x, newPOS.y, transform.rotation.z);
-		transform.rotation = Quaternion.Lerp(transform.rotation, newRot, 10 * lerpSpeed * Time.deltaTime);
-	}
 
 
 

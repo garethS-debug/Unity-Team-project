@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerCameraController : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class PlayerCameraController : MonoBehaviour
 
 
     [Header("Camera Positioning")]
-    private Vector3 originalCamPOS;
-    public float CameraFlipAmount;
+   // private Vector3 originalCamPOS;
+ //   public float CameraFlipAmount;
     public bool CameraOverShoulder, CameraFrontFacing;
 
     //public Vector3 OverShoulderPOS;
@@ -26,8 +27,12 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] public CameraPosition myDirection;
 
     [Header("Camera Movement")]
-    Vector3 currentPOS;
-    Vector3 newPOS;
+    //Vector3 currentPOS;
+    //Vector3 newPOS;
+
+   public  CinemachineFreeLook cinemachineFreeLook;
+     public GameObject parent;
+    public CinemachineVirtualCamera vcam;
 
 
 
@@ -35,10 +40,10 @@ public class PlayerCameraController : MonoBehaviour
     void Awake()
     {
         _cam = this.gameObject.GetComponent<Camera>();
-        _netControll = this.gameObject.GetComponent<NetworkedPlayerController>();
+       // _netControll = this.gameObject.GetComponent<NetworkedPlayerController>();
 
        
-        originalCamPOS = _cam.transform.localPosition;
+      //  originalCamPOS = _cam.transform.localPosition;
 
         CameraFrontFacing = true;
         CameraOverShoulder = false;
@@ -54,8 +59,24 @@ public class PlayerCameraController : MonoBehaviour
         myDirection = CameraPosition.FrontFacing;
 
 
+
+
+    
+
+  //      vcam.LookAt = parent.transform;
+      //  vcam.Follow = parent.transform;
+//
+
     }
 
+    public void Start()
+    {
+
+        cinemachineFreeLook.m_Follow = parent.transform;
+        cinemachineFreeLook.m_LookAt = parent.transform;
+
+        
+    }
     // Update is called once per frame
     void Update()
     {
@@ -67,7 +88,7 @@ public class PlayerCameraController : MonoBehaviour
 
 
         //rotating camera over time
-         //  currentPOS = _cam.transform.localPosition;
+        //  currentPOS = _cam.transform.localPosition;
         //  _cam.transform.localPosition = Vector3.Lerp(currentPOS, newPOS, lerpSpeed);   //TESTd
 
 
@@ -92,7 +113,7 @@ public class PlayerCameraController : MonoBehaviour
         _cam.transform.LookAt(this.gameObject.transform);
 
         //Player 
-        _netControll.MovementInversion = 1;
+      //  _netControll.MovementInversion = 1;
         myDirection = CameraPosition.OverShoulder;
 
 
@@ -117,7 +138,7 @@ public class PlayerCameraController : MonoBehaviour
         _cam.transform.LookAt(this.gameObject.transform);
 
         //Player Rotation
-        _netControll.MovementInversion = 1;
+      //  _netControll.MovementInversion = 1;
 
         myDirection = CameraPosition.FrontFacing;
 
