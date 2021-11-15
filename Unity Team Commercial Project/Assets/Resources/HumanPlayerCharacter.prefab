@@ -576,6 +576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 5dea348939dc7a84ba7f335378ccea4f, type: 2}
+  griefbar: {fileID: 11400000, guid: 59ece29b1d687a84da73b8563fbe77c8, type: 2}
 --- !u!1 &1729794143952959833
 GameObject:
   m_ObjectHideFlags: 0
