@@ -25,20 +25,26 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Instance = this;
     }
 
-    private void OnEnable()
-    {
-        base.OnEnable();
-        SceneManager.sceneLoaded += OnSceneLoaded;
 
+    public void Start()
+    {
+        CreatePlayer();
     }
+
+    //private void OnEnable()
+    //{
+    //    base.OnEnable();
+    //    SceneManager.sceneLoaded += OnSceneLoaded;
+
+    //}
 
  
 
-    private void OnDisable()
-    {
-        base.OnDisable();
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
+    //private void OnDisable()
+    //{
+    //    base.OnDisable();
+    //    SceneManager.sceneLoaded -= OnSceneLoaded;
+    //}
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode LoadSceneMode)
     {
@@ -49,4 +55,15 @@ public class RoomManager : MonoBehaviourPunCallbacks
       //  }
     }
 
+    public void CreatePlayer()
+    {
+        print("Creating Player : ".Color("Green"));
+
+        GameObject networkedPlayer = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+       // networkedPlayer.gameObject.GetComponent<NetworkedPlayerController>().isInLobby = false;
+    }
+
+
 }
+
+
