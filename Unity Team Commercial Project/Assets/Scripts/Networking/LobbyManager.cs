@@ -360,6 +360,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         GameObject LobbyRoom = Bonfire_GameObjects[Bonfire_Index];
         GameObject LobbySpawnPoints = Lobby_Room_Bonfire_SpawnPoints[Bonfire_SpawnIndex];
 
+        //Spawn Bonfire
         Instantiate(LobbyRoom, LobbySpawnPoints.transform.position, Quaternion.identity);
 
 
@@ -724,16 +725,31 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             Transform spawnPoint = Lobby_Room_Player_SpawnPoints[randomNumber].transform;
             
             GameObject playerToSpawn = playerPrefabs[(int)playerproperties["playerAvatar"]];
-           
+
+        //Defaulting on 2
+        print("Player Avatar: " + (int)playerproperties["playerAvatar"]);
         
         //    Debug.Log("Cretated Player Controller " + playerPrefabs[(int)playerproperties["playerAvatar"]]);
 
          //   Debug.Log("Im located on " + this.gameObject);
             //  PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), Vector3.zero, Quaternion.identity);
 
-          spawnedLobbyPlayer =  Instantiate(playerToSpawn, spawnPoint.position, Quaternion.identity);
-        spawnedLobbyPlayer.gameObject.GetComponent<NetworkedPlayerController>().isInLobby = true;
+            spawnedLobbyPlayer =  Instantiate(playerToSpawn, spawnPoint.position, spawnPoint.rotation);
+            spawnedLobbyPlayer.gameObject.GetComponent<NetworkedPlayerController>().isInLobby = true;
     }
+
+
+    public void On_Click_Change_Region()
+    {
+        // PhotonNetwork.loadBalancingClient.ConnectToRegionMaster("us");
+
+        string currentRegion = PhotonNetwork.CloudRegion;
+        string newRegion = "us";
+        PhotonNetwork.CloudRegion.Replace(currentRegion, newRegion);
+        print("Current Region : " + PhotonNetwork.CloudRegion);
+
+    }
+
 
  public void DebuggingFunction()
     {
