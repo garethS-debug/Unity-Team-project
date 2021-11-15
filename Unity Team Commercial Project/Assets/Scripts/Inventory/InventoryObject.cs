@@ -8,6 +8,9 @@ using System;
 public class InventoryObject : ScriptableObject
 {
     public List<InventorySlot> Container = new List<InventorySlot>();
+
+    public bool twoKeysCollected = false;
+
     public void AddItem(ItemObject _item, int _amount)
     {
         // Check if item is already in inventory
@@ -21,7 +24,7 @@ public class InventoryObject : ScriptableObject
 
                 if (_item.name == "GoldenKey")
                 {
-                    Debug.Log("2 golden keys");
+                    twoKeysCollected = true;
                 }
             }
         }

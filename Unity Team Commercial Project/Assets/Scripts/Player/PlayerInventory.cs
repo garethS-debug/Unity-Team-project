@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public InventoryObject inventory;
+    public GriefBarObject griefbar;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -13,6 +14,11 @@ public class PlayerInventory : MonoBehaviour
         {
             inventory.AddItem(item.item, 1);
             Destroy(other.gameObject);
+
+            if (inventory.twoKeysCollected == true)
+            {
+                Debug.Log("two keys collected");
+            }
         }
     }
 
