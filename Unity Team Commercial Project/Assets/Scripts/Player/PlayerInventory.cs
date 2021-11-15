@@ -25,6 +25,5 @@ public class PlayerInventory : MonoBehaviour
     {
         // Clear the player's inventory when they quit
         inventory.Container.Clear();
-
     }
 }

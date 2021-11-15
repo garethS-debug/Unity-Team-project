@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: HumanPlayerInventory
   m_EditorClassIdentifier: 
   Container: []
+  twoKeysCollected: 0
