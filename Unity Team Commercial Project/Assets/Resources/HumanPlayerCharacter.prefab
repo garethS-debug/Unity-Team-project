@@ -505,6 +505,7 @@ MonoBehaviour:
   JumpForce: 10
   JumpInput: 32
   grounded: 0
+  bonfireSpawn: {fileID: 6053237637760055993}
   toRot: {x: 0, y: 0, z: 0}
   lerpSpeed: 0.5
   durationTime: 0

@@ -264,7 +264,7 @@ Transform:
   m_GameObject: {fileID: 2295544470678287887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 7734314942204630565}
   - {fileID: 3929814296780244526}
@@ -356,6 +356,7 @@ MonoBehaviour:
   passwordRequired: 0
   LobbySpawnPoint: {fileID: 0}
   BonfireGO: {fileID: 0}
+  bonfireGhost: {fileID: 501029140920689153}
 --- !u!65 &4902874812327242995
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6357,6 +6358,90 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1001 &2819462435982912552
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 798613665975691372}
+    m_Modifications:
+    - target: {fileID: 1648103272126973518, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_Name
+      value: BonfireGhost
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.0020143986
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.70000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.015445269
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2131589783073971444, guid: dd44f97fcfaef354aaf7413e0b122fb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dd44f97fcfaef354aaf7413e0b122fb5, type: 3}
 --- !u!1001 &7018997253978322980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6471,6 +6556,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6699633240346256786, guid: f4d84259a5f58a5489417586c4b5de47,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699633240346256786, guid: f4d84259a5f58a5489417586c4b5de47,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 81d65bc0ba907e541a0164cd0efd2c95, type: 2}
@@ -6549,8 +6639,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: BonfireGhost
       objectReference: {fileID: 0}
+    - target: {fileID: 7605801967231495552, guid: f4d84259a5f58a5489417586c4b5de47,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4d84259a5f58a5489417586c4b5de47, type: 3}
+--- !u!1 &501029140920689153 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7605801967231495552, guid: f4d84259a5f58a5489417586c4b5de47,
+    type: 3}
+  m_PrefabInstance: {fileID: 8032521567986421633}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &798613665975691372 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7236159986399602669, guid: f4d84259a5f58a5489417586c4b5de47,

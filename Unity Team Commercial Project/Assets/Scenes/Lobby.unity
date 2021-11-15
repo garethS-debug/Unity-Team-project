@@ -6998,7 +6998,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1125524723}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -59.1}
+  m_LocalPosition: {x: 0, y: -5.1, z: -59.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 668998100}
@@ -12346,6 +12346,7 @@ MonoBehaviour:
   - {fileID: 2077754617}
   - {fileID: 2014218510}
   - {fileID: 1125524723}
+  tempBonfire: {fileID: 0}
   playerPrefabs:
   - {fileID: 1648103272126973518, guid: cf273b467d0fda4439ab642a6ea73d20, type: 3}
   - {fileID: 1648103272126973518, guid: 97ff5e5dccbc6c4498a45186ba4cd06a, type: 3}
@@ -13948,7 +13949,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014218510}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 27.28, y: 0, z: 0}
+  m_LocalPosition: {x: 27.28, y: -5.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 668998100}
@@ -14169,7 +14170,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077754617}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 18.22}
+  m_LocalPosition: {x: 0, y: -5.1, z: 18.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 668998100}

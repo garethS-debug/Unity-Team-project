@@ -71,6 +71,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     int Bonfire_Index, Bonfire_SpawnIndex;
     public GameObject[] Lobby_Room_Bonfire_SpawnPoints;
     List<GameObject> bonfiresItems = new List<GameObject>();   //List of room items
+    public GameObject tempBonfire;
+
+
+
+
 
     [Header("Player Avatars")]
     public GameObject[] playerPrefabs;         //stored player prefabs
@@ -146,6 +151,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
 
             spawnedLobbyPlayer.transform.position = BonfirePosition.transform.position;
+            GameObject bonfireSpawn =   spawnedLobbyPlayer.gameObject.GetComponent<NetworkedPlayerController>().bonfireSpawn;
+         
+            tempBonfire =  Instantiate(Bonfire_GameObjects[Bonfire_Index], bonfireSpawn.transform.position, Quaternion.identity);
+            RoomItem bonfireRoomitem = tempBonfire.gameObject.GetComponent<RoomItem>();
+            bonfireRoomitem.roomButton.SetActive(false);
+            bonfireRoomitem.bonfireGhost.SetActive(false);
+            bonfireRoomitem.isHostVersion = true;
+
            // print("Move me to : " + BonfirePosition.transform.position);
 
 
@@ -500,7 +513,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void OnClickLeaveRoom()                      //leave room button
     {
-        PhotonNetwork.LeaveRoom();     
+        PhotonNetwork.LeaveRoom();
+        Destroy(tempBonfire);
         
         //refresh rooms
     }
@@ -630,7 +644,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
 
-
+    /*
 
     public void OnClick_CallKick()
     {
@@ -693,7 +707,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
   
     }
-
+    */
 
    public void SpawnLobbyPlayer ()
     {
