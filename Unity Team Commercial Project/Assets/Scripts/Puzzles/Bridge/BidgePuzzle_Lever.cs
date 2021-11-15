@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BidgePuzzle_Lever : MonoBehaviour
 {
+
+    public GameObject missingBridePiece;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +34,7 @@ public class BidgePuzzle_Lever : MonoBehaviour
             if (controller.PermormingAction == true )
             {
                 //SEND CALL FOR ACTION - suvscription 
+                //Spawn Bridge Piece
             }
             else
             {
