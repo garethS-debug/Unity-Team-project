@@ -402,13 +402,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2131589783073971444}
-  - component: {fileID: 1531644324875848135}
   - component: {fileID: 1531644324875848131}
   - component: {fileID: 1531644324875848134}
   - component: {fileID: 1531644324875848132}
   - component: {fileID: 1531644324875848133}
   - component: {fileID: 1531644324875848136}
   - component: {fileID: -4928372677431717305}
+  - component: {fileID: 7765795621630882915}
+  - component: {fileID: 2123023148977879965}
   m_Layer: 0
   m_Name: HumanPlayerCharacter
   m_TagString: Player
@@ -431,25 +432,10 @@ Transform:
   - {fileID: 4064271472096370651}
   - {fileID: 5892044569422838880}
   - {fileID: 1680464259}
+  - {fileID: 6682451347460764235}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
---- !u!54 &1531644324875848135
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1648103272126973518}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!136 &1531644324875848131
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -514,32 +500,31 @@ MonoBehaviour:
   anim: {fileID: 0}
   DampTime: 1.1
   turning: 0
-  m_Rigidbody: {fileID: 0}
   m_Capsule: {fileID: 0}
-  rotSpeed: 5
   m_TurnAmount: 0
-  mouseSensitivity: 0
-  sprintSpeed: 12
-  walkSpeed: 9
-  jumpForce: 750
-  smoothTime: 0.15
-  movementSpeed: 5
-  rotationSpeed: 5
-  anim_walkSpeed: 4.12
-  sneakHash: 0
-  againstWallHash: 0
+  gravity: 15
+  JumpForce: 10
+  JumpInput: 32
   grounded: 0
-  MovementInversion: 1
+  bonfireSpawn: {fileID: 6053237637760055993}
   toRot: {x: 0, y: 0, z: 0}
   lerpSpeed: 0.5
   durationTime: 0
-  camPrefab: {fileID: 5581449300400985643, guid: ce1e677b9d2d7ac43b853fb4b0912843,
+  camPrefab: {fileID: 1006456702666912181, guid: 7b3eb5d14b972f14aa5e6d81bb61b390,
     type: 3}
   _camControll: {fileID: 0}
-  CamYOffset: 10
-  CamZOffset: 31.8
-  camFollowDistance: -16.87
-  camSmoothing: 0.1
+  isInLobby: 0
+  speedMove4: 0
+  controller: {fileID: 0}
+  SprintInput: 304
+  cam: {fileID: 0}
+  turnSmoothTime: 0.112
+  anim_walkSpeed: 4.12
+  sprintSpeed: 18
+  walkspeed: 8
+  smoothTime: 0.15
+  PerformAction: 102
+  PermormingAction: 0
 --- !u!114 &1531644324875848136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,6 +561,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 5dea348939dc7a84ba7f335378ccea4f, type: 2}
+--- !u!143 &7765795621630882915
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648103272126973518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.24
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!114 &2123023148977879965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648103272126973518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027b119ea2e86de409c6d9b1d82ef9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharaceterName: Human Player
+  isGhostCharacer: 0
+  isHumanCharater: 1
 --- !u!1 &1729794143952959833
 GameObject:
   m_ObjectHideFlags: 0
@@ -1886,6 +1904,36 @@ Transform:
   m_Children:
   - {fileID: 7634835218637112194}
   m_Father: {fileID: 264577862490604759}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6053237637760055993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6682451347460764235}
+  m_Layer: 0
+  m_Name: BonfireSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6682451347460764235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6053237637760055993}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.6080017}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2131589783073971444}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6110100935929906626

@@ -11,11 +11,13 @@ using ExitGames.Client.Photon;
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
 
+    [Header("Room")]
     public TMP_InputField roomInputField;
     public GameObject lobbyPanel;
     public GameObject roomPanel;
     public TMP_Text roomName;
 
+    [Header("MaxPlayerCount")]
     public TMP_Text MaxPlayerUI;
     public int maxPlayerCount = 1;
 
@@ -69,13 +71,27 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject Lobby_PLayer;
     public GameObject[] Bonfire_GameObjects;
     int Bonfire_Index, Bonfire_SpawnIndex;
-    public GameObject[] Lobby_Room_SpawnPoints;
+    public GameObject[] Lobby_Room_Bonfire_SpawnPoints;
     List<GameObject> bonfiresItems = new List<GameObject>();   //List of room items
+    public GameObject tempBonfire;
+
+
+
+
 
     [Header("Player Avatars")]
     public GameObject[] playerPrefabs;         //stored player prefabs
     public ExitGames.Client.Photon.Hashtable playerproperties = new ExitGames.Client.Photon.Hashtable();   //Custom property - Hashtable (a list with a name instead of #)
     public PlayerSO playerSOData;
+    public GameObject[] Lobby_Room_Player_SpawnPoints;
+    private GameObject spawnedLobbyPlayer;
+
+    [Header("Debugging")]
+    public TMP_Text regionTextbox;
+
+    [Header("UI")]
+
+    public GameObject lobbyUI;
 
     public void Awake()
     {
@@ -98,14 +114,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (playerSOData.AutoConnect == true)
         {
             playerproperties["playerAvatar"] = playerSOData.PlayerCharacterChoise;
-            print("PLayer ID = " + (int)playerproperties["playerAvatar"]);
+            //print("PLayer ID = " + (int)playerproperties["playerAvatar"]);
         }
 
-        print("Start ID = " + (int)playerproperties["playerAvatar"]);
+       // print("Start ID = " + (int)playerproperties["playerAvatar"]);
 
 
         roomPanel.SetActive(false); //set to false in case
-        print("Test");
+       // print("Test");
 
         // if (!PhotonNetwork.IsConnected)
         // {
@@ -118,6 +134,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         maxPlayerCount = 1;
 
+        DebuggingFunction();
+
+        lobbyUI.gameObject.SetActive(false);
    
     }
 
@@ -132,8 +151,24 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
 
             //3D Lobby Settings
-            Bonfire_SpawnIndex = UnityEngine.Random.Range(0, Lobby_Room_SpawnPoints.Length);      //Choosing a Random Spawn point
+            Bonfire_SpawnIndex = UnityEngine.Random.Range(0, Lobby_Room_Bonfire_SpawnPoints.Length);      //Choosing a Random Spawn point
+            
             Bonfire_Index = UnityEngine.Random.Range(0, Bonfire_GameObjects.Length);              //Choosing a Random Fireplace
+
+            GameObject BonfirePosition = Lobby_Room_Bonfire_SpawnPoints[Bonfire_SpawnIndex];
+
+
+            spawnedLobbyPlayer.transform.position = BonfirePosition.transform.position;
+            GameObject bonfireSpawn =   spawnedLobbyPlayer.gameObject.GetComponent<NetworkedPlayerController>().bonfireSpawn;
+         
+            tempBonfire =  Instantiate(Bonfire_GameObjects[Bonfire_Index], bonfireSpawn.transform.position, Quaternion.identity);
+            RoomItem bonfireRoomitem = tempBonfire.gameObject.GetComponent<RoomItem>();
+            bonfireRoomitem.roomButton.SetActive(false);
+            bonfireRoomitem.bonfireGhost.SetActive(false);
+            bonfireRoomitem.isHostVersion = true;
+
+           // print("Move me to : " + BonfirePosition.transform.position);
+
 
             //Max player count is hardcoded at 2 instead of maxPlayerCount
             CreateRoom(roomInputField.text, /*maxPlayerCount*/ 2, passwordField.text, Bonfire_SpawnIndex, Bonfire_Index);
@@ -203,14 +238,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //Bonfire 
         custProps.Add("BonfireSpawnPoint", _lobbySpawnIndex);
         custProps.Add("Bonfire", _bonfire);
-        Debug.Log(" Cust Prop add 3d Lobby ");
+       // Debug.Log(" Cust Prop add 3d Lobby ");
 
         roomOptions.CustomRoomProperties = custProps;
 
 
         //Set up custom room properties
         roomOptions.CustomRoomPropertiesForLobby = new string[] { "Password", "BonfireSpawnPoint", "Bonfire" };
-        Debug.Log(" Room Option = new password ");
+      //  Debug.Log(" Room Option = new password ");
 
 
 
@@ -277,7 +312,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnRoomListUpdate(List<RoomInfo> _roomList)
     {
         //when a room is created, modified or destroyed
-        print("OnRoomList Update");
+     //   print("OnRoomList Update");
         /*
         if (Time.time >= nextUpdateTime)
         {
@@ -316,12 +351,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         //Waiting players will be outside of the room. 
 
+        //Setting up room
+
         Bonfire_Index = UnityEngine.Random.Range(0, Bonfire_GameObjects.Length);
-        Bonfire_SpawnIndex = UnityEngine.Random.Range(0, Lobby_Room_SpawnPoints.Length);
+        Bonfire_SpawnIndex = UnityEngine.Random.Range(0, Lobby_Room_Bonfire_SpawnPoints.Length);
         
 
         GameObject LobbyRoom = Bonfire_GameObjects[Bonfire_Index];
-        GameObject LobbySpawnPoints = Lobby_Room_SpawnPoints[Bonfire_SpawnIndex];
+        GameObject LobbySpawnPoints = Lobby_Room_Bonfire_SpawnPoints[Bonfire_SpawnIndex];
 
         Instantiate(LobbyRoom, LobbySpawnPoints.transform.position, Quaternion.identity);
 
@@ -399,7 +436,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //Bonfire Settings
 
             GameObject BonfireGO = Bonfire_GameObjects[(int)info.CustomProperties["Bonfire"]];                              //Getting the bonfire GO from the room information 
-            GameObject BonfireSpawnPoint = Lobby_Room_SpawnPoints[(int)info.CustomProperties["BonfireSpawnPoint"]];         //Getting the bonfire spawn point from the room information 
+            GameObject BonfireSpawnPoint = Lobby_Room_Bonfire_SpawnPoints[(int)info.CustomProperties["BonfireSpawnPoint"]];         //Getting the bonfire spawn point from the room information 
             GameObject bonfireINS = Instantiate(BonfireGO, BonfireSpawnPoint.transform.position, Quaternion.identity);
 
             RoomItem newRoom = bonfireINS.gameObject.GetComponent<RoomItem>();                                              //Get Room Component of bonfire
@@ -411,14 +448,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
 
             //Room Information
-            print("Room Name = " + info.Name);
+        //    print("Room Name = " + info.Name);
 
             //  RoomItem newRoom = Instantiate(RoomItemPrefab, contentObject);         //Instantiate the UI element
 
             newRoom.SetRoomName(info.Name);                                         //Set toom name in the item
             newRoom.roomInfo = info;
             roomItems.Add(newRoom);                                                 //AddComponentMenu new to list
-            print("Add Rooms");
+         //   print("Add Rooms");
 
 
           
@@ -429,14 +466,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
             if (info.CustomProperties["Password"] != null)
             {
-                Debug.Log("Password is : " + info.CustomProperties["Password"]);
+            //    Debug.Log("Password is : " + info.CustomProperties["Password"]);
 
                 newRoom.passwordRequired = true;
             }
 
             if (info.CustomProperties["Password"].ToString() == "")
             {
-                Debug.Log("No password on room " + info.Name);
+          //      Debug.Log("No password on room " + info.Name);
                 newRoom.passwordRequired = false;
             }
 
@@ -484,7 +521,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void OnClickLeaveRoom()                      //leave room button
     {
-        PhotonNetwork.LeaveRoom();     
+        PhotonNetwork.LeaveRoom();
+        Destroy(tempBonfire);
         
         //refresh rooms
     }
@@ -614,12 +652,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
 
 
-
+    /*
 
     public void OnClick_CallKick()
     {
         Kick(nicknameInputField);
-        print("Kick Button Clicked");
+      //  print("Kick Button Clicked");
     }
 
     private void Kick(TMP_InputField inputField)
@@ -646,7 +684,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
               
                 if (nickname.Equals(player.Value.NickName))
                 {
-                    print("Kicking " + player.Value);
+                //    print("Kicking " + player.Value);
                     KickingPlayer(player.Value);
                     return;
                 }
@@ -677,24 +715,30 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
   
     }
-
+    */
 
    public void SpawnLobbyPlayer ()
     {
      
-            int randomNumber = UnityEngine.Random.Range(0, Lobby_Room_SpawnPoints.Length);
-            Transform spawnPoint = Lobby_Room_SpawnPoints[randomNumber].transform;
+            int randomNumber = UnityEngine.Random.Range(0, Lobby_Room_Player_SpawnPoints.Length);
+            Transform spawnPoint = Lobby_Room_Player_SpawnPoints[randomNumber].transform;
             
             GameObject playerToSpawn = playerPrefabs[(int)playerproperties["playerAvatar"]];
            
         
-            Debug.Log("Cretated Player Controller " + playerPrefabs[(int)playerproperties["playerAvatar"]]);
+        //    Debug.Log("Cretated Player Controller " + playerPrefabs[(int)playerproperties["playerAvatar"]]);
 
-            Debug.Log("Im located on " + this.gameObject);
+         //   Debug.Log("Im located on " + this.gameObject);
             //  PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), Vector3.zero, Quaternion.identity);
 
-            Instantiate(playerToSpawn, spawnPoint.position, Quaternion.identity);
-        
+          spawnedLobbyPlayer =  Instantiate(playerToSpawn, spawnPoint.position, Quaternion.identity);
+        spawnedLobbyPlayer.gameObject.GetComponent<NetworkedPlayerController>().isInLobby = true;
+    }
+
+ public void DebuggingFunction()
+    {
+        //   print("Region " + PhotonNetwork.CloudRegion);
+        regionTextbox.text = PhotonNetwork.CloudRegion;
     }
 }
 

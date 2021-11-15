@@ -32,8 +32,8 @@ public class RoomItem : MonoBehaviour
     [Header("3D Lobby Settings")]
     public GameObject LobbySpawnPoint;
     public GameObject BonfireGO;
-
-
+    public GameObject bonfireGhost;
+    public bool isHostVersion;
 
     private void Start()
     {
@@ -55,7 +55,7 @@ public class RoomItem : MonoBehaviour
         }
 
 
-        Debug.Log(" ROOM ID = " + roomInfo.CustomProperties["3DLobby"]);
+      //  Debug.Log(" ROOM ID = " + roomInfo.CustomProperties["3DLobby"]);
 
         roomButton.SetActive(false);
         PasswordBox.gameObject.SetActive(false);
@@ -113,27 +113,34 @@ public class RoomItem : MonoBehaviour
 
     public void onClickLeaveRoom()
     {
-        roomButton.SetActive(false);
+        if (isHostVersion == false)
+        {
+            roomButton.SetActive(false);
+        }
     }
 
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "LobbyCharacter")
+        if (isHostVersion == false)
         {
-            roomButton.SetActive(true);
-
-            if (thePasswordDummy != "")
+            if (other.gameObject.tag == "Player")
             {
-                PasswordBox.gameObject.SetActive(true);
+                roomButton.SetActive(true);
+
+                if (thePasswordDummy != "")
+                {
+                    PasswordBox.gameObject.SetActive(true);
+                }
             }
         }
+   
        
     }
 
     public void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "LobbyCharacter")
+        if (other.gameObject.tag == "Player")
         {
           //  roomButton.SetActive(true);
             
@@ -147,15 +154,19 @@ public class RoomItem : MonoBehaviour
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "LobbyCharacter")
+        if (isHostVersion == false)
         {
-            roomButton.SetActive(false);
-
-            if (thePasswordDummy != "")
+            if (other.gameObject.tag == "Player")
             {
-                PasswordBox.gameObject.SetActive(false);
+                roomButton.SetActive(false);
+
+                if (thePasswordDummy != "")
+                {
+                    PasswordBox.gameObject.SetActive(false);
+                }
+
             }
-       
         }
+    
     }
 }

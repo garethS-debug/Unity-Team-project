@@ -44,7 +44,14 @@ public class GameSetup : MonoBehaviour
 	void Start()
     {
 		staticPlayerData = playerSOData;
-    }
+
+
+		print("example text in bold".Bold());
+		print("example text in italics".Italic());
+		print("example in Color".Color("red"));
+		print("combine two or more in one".Bold().Color("yellow"));
+		print("size also but be careful".Size(20));
+	}
 
     // Update is called once per frame
     void Update()
@@ -58,7 +65,7 @@ public class GameSetup : MonoBehaviour
 	internal static void LoadDataFromSaveFile(SaveGameManager.SaveFile saveFile)                                                                                        //Method for loading information from the save file. 
 	{
 
-		print("Selected character number " +  saveFile.slectedCharacter);
+		//print("Selected character number " +  saveFile.slectedCharacter);
 
 		playerSaveFile = saveFile;
 		PlayerCharacter = saveFile.slectedCharacter;
@@ -112,7 +119,7 @@ public class GameSetup : MonoBehaviour
     {
 
 		PlayerCharacter = 1;
-		Debug.Log("Saving....");
+		//Debug.Log("Saving....");
 		playerName = ChildNameInput.text;
 		SaveGameManager.Save();
 		SceneManager.LoadScene(levelToLoad);
@@ -122,7 +129,7 @@ public class GameSetup : MonoBehaviour
 	public void SELECT_GHOSTCHARACTER()
 	{
 		PlayerCharacter = 2;
-		Debug.Log("Saving....");
+		//Debug.Log("Saving....");
 		playerName = GhostNameInput.text;
 		SaveGameManager.Save();
 		SceneManager.LoadScene(levelToLoad);
@@ -135,14 +142,14 @@ public class GameSetup : MonoBehaviour
 
 	if (isSave)
         {
-			Debug.Log("Continue to game with your character...");
+		//	Debug.Log("Continue to game with your character...");
 			SaveGameManager.Load();
 			UpdatePlayerSaveSO();
 			SceneManager.LoadScene(levelToLoad);
 		}
 	else
         {
-			Debug.Log("Choose A Character");
+		//	Debug.Log("Choose A Character");
 			selectCharacterUI.SetActive(true);
 			StartUI.SetActive(false);
 
