@@ -743,10 +743,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         // PhotonNetwork.loadBalancingClient.ConnectToRegionMaster("us");
 
-        string currentRegion = PhotonNetwork.CloudRegion;
-        string newRegion = "us";
-        PhotonNetwork.CloudRegion.Replace(currentRegion, newRegion);
+        //string currentRegion = PhotonNetwork.CloudRegion;
+        //string newRegion = "us";
+        //PhotonNetwork.CloudRegion.Replace(currentRegion, newRegion);
+        //print("Current Region : " + PhotonNetwork.CloudRegion);
+
+
+        //PhotonNetwork.ConnectToRegion("us");
+
+        PhotonNetwork.PhotonServerSettings.AppSettings.FixedRegion = "us";
+
+
         print("Current Region : " + PhotonNetwork.CloudRegion);
+
+
 
     }
 
