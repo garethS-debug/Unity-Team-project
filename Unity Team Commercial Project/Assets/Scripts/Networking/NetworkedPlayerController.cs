@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-
+using System;
 
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(Animator))]
@@ -134,8 +134,9 @@ public class NetworkedPlayerController : MonoBehaviour
 	private float movementSpeed;
 
 
-
-
+	[Header("Perform Action")]
+	public KeyCode PerformAction = KeyCode.F;
+	public bool PermormingAction;
 
 	private void Awake()
 	{
@@ -252,13 +253,13 @@ public class NetworkedPlayerController : MonoBehaviour
 		//Move 3 is the current edition 
 		Move5();
 		Jump();
-		
+		PerformActionCheck();
 	
 	}
 
 
 
-	public void Move5()
+    public void Move5()
     {
 		float horizontalInput = Input.GetAxisRaw("Horizontal"); //-1 and +1 (-1 for left , + 1 for right)
 		float verticalInput = Input.GetAxisRaw("Vertical"); // -1 and +1  (+ 1 up, - 1 down) 
@@ -697,6 +698,19 @@ public class NetworkedPlayerController : MonoBehaviour
 		Gizmos.color = Color.red;
 		Vector3 direction = transform.TransformDirection(Vector3.forward) * 100;
 		Gizmos.DrawRay(transform.position, direction);
+	}
+
+
+	private void PerformActionCheck()
+	{
+	 if (Input.GetKey(PerformAction))
+        {
+			PermormingAction = true;
+        }
+	 else
+        {
+			PermormingAction = false;
+        }
 	}
 
 }

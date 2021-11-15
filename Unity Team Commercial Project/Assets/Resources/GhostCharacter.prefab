@@ -503,7 +503,7 @@ MonoBehaviour:
   m_Capsule: {fileID: 0}
   m_TurnAmount: 0
   gravity: 15
-  JumpForce: 10
+  JumpForce: 15
   JumpInput: 32
   grounded: 0
   bonfireSpawn: {fileID: 6763992483822044469}
