@@ -44,7 +44,8 @@ public class RoomManager : MonoBehaviourPunCallbacks
     {
         // if (scene.buildIndex == 1) // if we are in the game scene
         // {
-        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+     GameObject networkedPlayer =   PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+        networkedPlayer.gameObject.GetComponent<NetworkedPlayerController>().isInLobby = false;
       //  }
     }
 

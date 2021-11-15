@@ -61,7 +61,7 @@ public class PlayerItem : MonoBehaviourPunCallbacks
             {
                 if (player.Value != PhotonNetwork.LocalPlayer) //checking if this is the local player in question
                 {
-                    KickButton.gameObject.SetActive(true);
+                  //  KickButton.gameObject.SetActive(true);
                 }
 
             }
@@ -73,7 +73,7 @@ public class PlayerItem : MonoBehaviourPunCallbacks
 
         else if (!PhotonNetwork.IsMasterClient)
         {
-            KickButton.gameObject.SetActive(true);
+          //  KickButton.gameObject.SetActive(true);
         }
     }
 
