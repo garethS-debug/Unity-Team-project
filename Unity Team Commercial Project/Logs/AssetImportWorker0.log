@@ -176,3 +176,4 @@ Received Import Request.
 Start importing Assets/Resources/ImprovedGameCamera.prefab using Guid(7b3eb5d14b972f14aa5e6d81bb61b390) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7beae5cc605ae25a3259d5fff3a7ac33') in 0.042255 seconds 
   Import took 0.048247 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
