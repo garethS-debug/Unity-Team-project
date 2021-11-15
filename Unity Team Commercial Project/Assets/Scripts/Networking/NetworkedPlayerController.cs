@@ -121,6 +121,7 @@ public class NetworkedPlayerController : MonoBehaviour
 	[Header("NewPLayerMovement")]
 	public CharacterController controller;              //Motor that drives the player
 	public KeyCode SprintInput = KeyCode.LeftShift;
+	public KeyCode AltSprint = KeyCode.RightShift;
 	public Transform cam;
 	[Range(0, 1)]
 	public float turnSmoothTime = 0.1f;
@@ -274,7 +275,7 @@ public class NetworkedPlayerController : MonoBehaviour
 			transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
 
-			movementSpeed = Mathf.Lerp(movementSpeed, (Input.GetKey(SprintInput) ? sprintSpeed : walkspeed), smoothTime);
+			movementSpeed = Mathf.Lerp(movementSpeed, (Input.GetKey(SprintInput) || Input.GetKey(AltSprint) ? sprintSpeed : walkspeed), smoothTime);
 
 			
 			Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;        //move in direction of camera
