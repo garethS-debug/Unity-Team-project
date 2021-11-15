@@ -1,3 +1,341 @@
 Base path: 'C:/Program Files/Unity/Hub/Editor/2020.3.21f1/Editor/Data', plugins path 'C:/Program Files/Unity/Hub/Editor/2020.3.21f1/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Cmd: initializeCompiler
+
+Cmd: compileSnippet
+  insize=5852 file=Packages/com.unity.render-pipelines.high-definition/Runtime/Material/AxF/HDRP/AxF pass=ForwardOnly cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 rsLen=0 pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SCREEN_SPACE_SHADOWS_OFF USE_FPTL_LIGHTLIST SHADOW_LOW DECALS_OFF _AXF_BRDF_TYPE_SVBRDF dKW=_SURFACE_TYPE_TRANSPARENT LOD_FADE_CROSSFADE DEBUG_DISPLAY LIGHTMAP_ON DIRLIGHTMAP_COMBINED DYNAMICLIGHTMAP_ON SHADOWS_SHADOWMASK SCREEN_SPACE_SHADOWS_ON DECALS_3RT DECALS_4RT SHADOW_MEDIUM SHADOW_HIGH USE_CLUSTERED_LIGHTLIST INSTANCING_ON _AXF_BRDF_TYPE_CAR_PAINT _AXF_BRDF_TYPE_BTF _SPECULAR_OCCLUSION_NONE _MAPPING_PLANAR _MAPPING_TRIPLANAR _REQUIRE_UV1 _REQUIRE_UV2 _REQUIRE_UV3 _PLANAR_LOCAL _ALPHATEST_ON _ALPHATOMASK_ON _DOUBLESIDED_ON _DISABLE_DECALS _DISABLE_SSR _DISABLE_SSR_TRANSPARENT _ENABLE_GEOMETRIC_SPECULAR_AA _ADD_PRECOMPUTED_VELOCITY _ENABLE_FOG_ON_TRANSPARENT UNITY_NO_DXT5nm UNITY_ENABLE_NATIVE_SHADOW_LOOKUPS UNITY_METAL_SHADOWS_USE_POINT_FILTERING UNITY_NO_SCREENSPACE_SHADOWS UNITY_PBS_USE_BRDF2 UNITY_PBS_USE_BRDF3 UNITY_NO_FULL_STANDARD_SHADER UNITY_HARDWARE_TIER1 UNITY_HARDWARE_TIER2 UNITY_HARDWARE_TIER3 UNITY_COLORSPACE_GAMMA UNITY_HALF_PRECISION_FRAGMENT_SHADER_REGISTERS UNITY_LIGHTMAP_DLDR_ENCODING UNITY_LIGHTMAP_RGBM_ENCODING UNITY_VIRTUAL_TEXTURING UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION UNITY_ASTC_NORMALMAP_ENCODING SHADER_API_GLES30 flags=0 lang=3 type=Fragment platform=d3d11 reqs=1101803 mask=6 start=430 ok=1 outsize=89362
+
+Cmd: compileComputeKernel
+  insize=10754 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/Deferred.compute kernel=Deferred_Indirect_Fptl_Variant4 cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<SHADE_OPAQUE_ENTRY=Deferred_Indirect_Fptl_Variant4>,<USE_INDIRECT=1>,<VARIANT=4>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SCREEN_SPACE_SHADOWS_OFF SHADOW_MEDIUM SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=52253
+
+Cmd: compileComputeKernel
+  insize=10754 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/Deferred.compute kernel=Deferred_Indirect_Fptl_Variant25 cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<SHADE_OPAQUE_ENTRY=Deferred_Indirect_Fptl_Variant25>,<USE_INDIRECT=1>,<VARIANT=25>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SCREEN_SPACE_SHADOWS_OFF SHADOW_MEDIUM SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=37045
+
+Cmd: compileComputeKernel
+  insize=3248 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/builddispatchindirect.compute kernel=BuildIndirect cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=IS_DRAWPROCEDURALINDIRECT SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=2133
+
+Cmd: compileComputeKernel
+  insize=1320 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.visualeffectgraph@10.6.0/Shaders/VFXCopyBuffer.compute kernel=CSVFXInitDeadListBuffer cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=678
+
+Cmd: compileComputeKernel
+  insize=3001 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/PostProcessing/Shaders/DepthOfFieldKernel.compute kernel=KParametricBlurKernel cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<MAIN=KParametricBlurKernel>,<GROUP_SIZE=64>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=1860
+
+Cmd: compileComputeKernel
+  insize=26393 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/lightlistbuild-clustered.compute kernel=TileLightListGen_NoDepthRT cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<LIGHTLISTGEN=TileLightListGen_NoDepthRT>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=13383
+
+Cmd: compileComputeKernel
+  insize=4336 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/ShaderLibrary/ResolveStencilBuffer.compute kernel=MAIN_MSAA_2 cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<KERNEL_NAME=MAIN_MSAA_2>,<NUM_SAMPLES=2>,<MSAA=1>,<COARSE_STENCIL=1>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=1096
+
+Cmd: compileComputeKernel
+  insize=10754 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/Deferred.compute kernel=Deferred_Indirect_Fptl_Variant10 cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<SHADE_OPAQUE_ENTRY=Deferred_Indirect_Fptl_Variant10>,<USE_INDIRECT=1>,<VARIANT=10>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SCREEN_SPACE_SHADOWS_ON SHADOWS_SHADOWMASK SHADOW_MEDIUM SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=39440
+
+Cmd: compileComputeKernel
+  insize=476 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/lightlistbuild-clearatomic.compute kernel=ClearAtomic cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=324
+
+Cmd: compileComputeKernel
+  insize=26393 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/lightlistbuild-clustered.compute kernel=TileLightListGen_DepthRT_SrcBigTile_Oblique cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<LIGHTLISTGEN=TileLightListGen_DepthRT_SrcBigTile_Oblique>,<ENABLE_DEPTH_TEXTURE_BACKPLANE=1>,<USE_TWO_PASS_TILED_LIGHTING=1>,<USE_OBLIQUE_MODE=1>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=15439
+
+Cmd: compileComputeKernel
+  insize=10754 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/Deferred.compute kernel=Deferred_Indirect_Fptl_Variant26 cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<SHADE_OPAQUE_ENTRY=Deferred_Indirect_Fptl_Variant26>,<USE_INDIRECT=1>,<VARIANT=26>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SCREEN_SPACE_SHADOWS_ON SHADOWS_SHADOWMASK SHADOW_MEDIUM SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=56098
+
+Cmd: compileComputeKernel
+  insize=20782 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/ScreenSpaceLighting/ScreenSpaceGlobalIllumination.compute kernel=ReprojectGlobalIllumination cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<REPROJECT_GLOBAL_ILLUMINATION=ReprojectGlobalIllumination>,<GI_REPROJECT=1>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=5183
+
+Cmd: compileComputeKernel
+  insize=3618 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Sky/PhysicallyBasedSky/GroundIrradiancePrecomputation.compute kernel=MAIN_S cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<main=MAIN_S>,<MULTIPLE_SCATTERING=1>,<SRC_SS=1>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=4339
+
+Cmd: compileComputeKernel
+  insize=6348 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/RenderPipeline/RenderPass/GenerateMaxZ.compute kernel=DilateMask cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<DILATE_MASK=1>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=994
+
+Cmd: compileComputeKernel
+  insize=10754 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/Deferred.compute kernel=Deferred_Indirect_Fptl_Variant8 cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<SHADE_OPAQUE_ENTRY=Deferred_Indirect_Fptl_Variant8>,<USE_INDIRECT=1>,<VARIANT=8>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SCREEN_SPACE_SHADOWS_OFF SHADOWS_SHADOWMASK SHADOW_MEDIUM SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=51065
+
+Cmd: compileComputeKernel
+  insize=10754 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/Deferred.compute kernel=Deferred_Indirect_Fptl_Variant18 cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<SHADE_OPAQUE_ENTRY=Deferred_Indirect_Fptl_Variant18>,<USE_INDIRECT=1>,<VARIANT=18>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SCREEN_SPACE_SHADOWS_OFF SHADOWS_SHADOWMASK SHADOW_MEDIUM SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=46899
+
+Cmd: compileComputeKernel
+  insize=10754 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/Deferred.compute kernel=Deferred_Indirect_Fptl_Variant27 cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<SHADE_OPAQUE_ENTRY=Deferred_Indirect_Fptl_Variant27>,<USE_INDIRECT=1>,<VARIANT=27>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SCREEN_SPACE_SHADOWS_OFF SHADOWS_SHADOWMASK SHADOW_MEDIUM SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=82091
+
+Cmd: compileComputeKernel
+  insize=20491 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/LightLoop/lightlistbuild.compute kernel=TileLightListGen cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=USE_FEATURE_FLAGS SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=14981
+
+Cmd: compileComputeKernel
+  insize=7361 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/ScreenSpaceLighting/GTAO.compute kernel=GTAOMain cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=FULL_RES SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=7591
+
+Cmd: compileComputeKernel
+  insize=39136 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/VolumetricLighting/VolumetricLighting.compute kernel=VolumetricLighting cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=ENABLE_REPROJECTION VL_PRESET_OPTIMAL SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=19713
+
+Cmd: compileComputeKernel
+  insize=39136 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/VolumetricLighting/VolumetricLighting.compute kernel=VolumetricLighting cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=16041
+
+Cmd: compileComputeKernel
+  insize=39136 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/Lighting/VolumetricLighting/VolumetricLighting.compute kernel=VolumetricLighting cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=ENABLE_ANISOTROPY ENABLE_REPROJECTION LIGHTLOOP_DISABLE_TILE_AND_CLUSTER SUPPORT_LOCAL_LIGHTS SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=47684
+
+Cmd: compileComputeKernel
+  insize=9221 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.visualeffectgraph@10.6.0/Shaders/Sort.compute kernel=BitonicSort1024 cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<BITONIC_SORT=BitonicSort1024>,<ELEMENTS_COUNT=1024>,<ITERATIONS_COUNT=2>,<FINAL_PASS=1>,<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=2791
+
+Cmd: compileComputeKernel
+  insize=3722 file=C:/Users/garet/Documents/GitHub/Unity-Team-project/Unity Team Commercial Project/Library/PackageCache/com.unity.render-pipelines.high-definition@10.6.0/Runtime/PostProcessing/Shaders/DepthOfFieldPrefilter.compute kernel=KMain cachingPP=1 ppOnly=0 stripLineD=0 buildPlatform=19 km=<UNITY_VERSION=202039> pKW=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_USE_DITHER_MASK_FOR_ALPHABLENDED_SHADOWS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING UNITY_ENABLE_DETAIL_NORMALMAP SHADER_API_DESKTOP UNITY_LIGHT_PROBE_PROXY_VOLUME UNITY_LIGHTMAP_FULL_HDR uKW=FAR FULL_RES NEAR SHADER_STAGE_COMPUTE platform=d3d11 flags=0 ok=1 outsize=871
+
