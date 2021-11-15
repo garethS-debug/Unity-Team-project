@@ -19,7 +19,7 @@ public class BonFire_Trigger : MonoBehaviour
             CharacterID charID = other.gameObject.GetComponent<CharacterID>();
 
 
-            if (charID.isHumanCharater == true)
+            if (charID.isHumanCharater == true || charID.isGhostCharacer == true)
             {
                 lobbyManager.lobbyUI.gameObject.SetActive(true);
             }
