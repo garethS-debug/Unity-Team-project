@@ -11,11 +11,13 @@ using ExitGames.Client.Photon;
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
 
+    [Header("Room")]
     public TMP_InputField roomInputField;
     public GameObject lobbyPanel;
     public GameObject roomPanel;
     public TMP_Text roomName;
 
+    [Header("MaxPlayerCount")]
     public TMP_Text MaxPlayerUI;
     public int maxPlayerCount = 1;
 
@@ -87,6 +89,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("Debugging")]
     public TMP_Text regionTextbox;
 
+    [Header("UI")]
+
+    public GameObject lobbyUI;
+
     public void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -129,6 +135,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         maxPlayerCount = 1;
 
         DebuggingFunction();
+
+        lobbyUI.gameObject.SetActive(false);
    
     }
 

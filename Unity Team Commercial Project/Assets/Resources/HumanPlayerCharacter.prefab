@@ -409,6 +409,7 @@ GameObject:
   - component: {fileID: 1531644324875848136}
   - component: {fileID: -4928372677431717305}
   - component: {fileID: 7765795621630882915}
+  - component: {fileID: 2123023148977879965}
   m_Layer: 0
   m_Name: HumanPlayerCharacter
   m_TagString: Player
@@ -522,6 +523,8 @@ MonoBehaviour:
   sprintSpeed: 18
   walkspeed: 8
   smoothTime: 0.15
+  PerformAction: 102
+  PermormingAction: 0
 --- !u!114 &1531644324875848136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,6 +579,21 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!114 &2123023148977879965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648103272126973518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 027b119ea2e86de409c6d9b1d82ef9c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharaceterName: Human Player
+  isGhostCharacer: 0
+  isHumanCharater: 1
 --- !u!1 &1729794143952959833
 GameObject:
   m_ObjectHideFlags: 0
