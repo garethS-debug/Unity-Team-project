@@ -72,8 +72,12 @@ public class PlayerCameraController : MonoBehaviour
     public void Start()
     {
 
-        cinemachineFreeLook.m_Follow = parent.transform;
-        cinemachineFreeLook.m_LookAt = parent.transform;
+        if (cinemachineFreeLook != null)
+        {
+            cinemachineFreeLook.m_Follow = parent.transform;
+            cinemachineFreeLook.m_LookAt = parent.transform;
+        }
+
 
         
     }
