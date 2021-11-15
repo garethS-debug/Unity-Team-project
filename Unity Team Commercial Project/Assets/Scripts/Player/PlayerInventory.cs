@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public InventoryObject inventory;
-    public GriefBarObject griefbar;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -26,5 +25,6 @@ public class PlayerInventory : MonoBehaviour
     {
         // Clear the player's inventory when they quit
         inventory.Container.Clear();
+
     }
 }

@@ -42,11 +42,11 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode LoadSceneMode)
     {
-        // if (scene.buildIndex == 1) // if we are in the game scene
-        // {
-     GameObject networkedPlayer =   PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
-        networkedPlayer.gameObject.GetComponent<NetworkedPlayerController>().isInLobby = false;
-      //  }
+        if (scene.buildIndex == 1) // if we are in the game scene
+        {
+            GameObject networkedPlayer =   PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+            networkedPlayer.gameObject.GetComponent<NetworkedPlayerController>().isInLobby = false;
+        }
     }
 
 }

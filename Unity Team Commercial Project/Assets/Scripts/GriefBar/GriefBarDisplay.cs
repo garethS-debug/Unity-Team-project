@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class GriefBarDisplay : MonoBehaviour
 {
     public Slider slider;
-    public GriefBarObject griefBar;
+    public GriefBarObject griefBarHuman;
+    public GriefBarObject griefBarGhost;
     public int maxGrief = 100;
     public int currentGrief;
 
@@ -28,9 +29,19 @@ public class GriefBarDisplay : MonoBehaviour
 
     public void CreateDisplay()
     {
-        var obj = Instantiate(griefBar.griefBarPrefab, Vector3.zero, Quaternion.identity, transform);
-        obj.GetComponent<RectTransform>().localPosition = Vector3.zero;
-        slider.fillRect = obj.GetComponent<RectTransform>();
+        if(GameObject.Find("HumanPlayerCharacter"))
+        {
+            var obj = Instantiate(griefBarHuman.griefBarPrefab, Vector3.zero, Quaternion.identity, transform);
+            obj.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            slider.fillRect = obj.GetComponent<RectTransform>();
+        }
+
+        if (GameObject.Find("GhostCharacter"))
+        {
+            var obj = Instantiate(griefBarGhost.griefBarPrefab, Vector3.zero, Quaternion.identity, transform);
+            obj.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            slider.fillRect = obj.GetComponent<RectTransform>();
+        }
     }
 
     private void SetMaxGrief(int grief)
