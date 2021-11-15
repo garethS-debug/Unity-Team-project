@@ -66,6 +66,9 @@ public class NetworkedPlayerController : MonoBehaviour
 	[Header("Photon Settings")]
 	PhotonView PV;
 
+
+	[Header("Bonfire")]
+	public GameObject bonfireSpawn;
 	//[Header("CameraInverstion")]
 	//public int MovementInversion = 1;
 	//Vector3 movementWithInversion;
@@ -466,16 +469,45 @@ public class NetworkedPlayerController : MonoBehaviour
 						verticalVelocity = JumpForce;
 						anim.SetBool("anim_Jumping", true); // Set jumping 
 
+						if (jumpDirForward == 0 && jumpDirLeftRight == 0)
+						{
+							anim.SetFloat(jumpHash, 0);
+						}
 
-					
+						if (jumpDirForward > 0 && jumpDirLeftRight <= 0)
+						{
+							//	print("Jump foward " + jumpDirForward );
+							anim.SetFloat(jumpHash, 1);
+						}
 
-					//	anim.SetFloat(jumpHash, );
+						if (jumpDirForward < 0 && jumpDirLeftRight >= 0)
+						{
+							//print("Jump Backwards " + jumpDirForward);
+							anim.SetFloat(jumpHash, 1);
+						}
+
+						if (jumpDirLeftRight > 0 && jumpDirForward >= 0)
+						{
+							//print("Jump Side - forward " + jumpDirLeftRight);
+							anim.SetFloat(jumpHash, 1);
+						}
+
+						if (jumpDirLeftRight < 0 && jumpDirForward <= 0)
+						{
+							//print("Jump Side - forward " + jumpDirLeftRight);
+							anim.SetFloat(jumpHash, 1);
+						}
+
+
+						//	anim.SetFloat(jumpHash, );
+
 					}
 				}
 
 				else
 				{
 					verticalVelocity -= gravity * Time.deltaTime;
+					anim.SetBool("anim_Jumping", false); // Set jumping 
 				}
 
 				Vector3 jumpvector = new Vector3(0, verticalVelocity, 0);

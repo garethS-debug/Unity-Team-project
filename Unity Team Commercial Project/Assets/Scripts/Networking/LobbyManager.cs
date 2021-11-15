@@ -69,14 +69,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject Lobby_PLayer;
     public GameObject[] Bonfire_GameObjects;
     int Bonfire_Index, Bonfire_SpawnIndex;
-    public GameObject[] Lobby_Room_SpawnPoints;
+    public GameObject[] Lobby_Room_Bonfire_SpawnPoints;
     List<GameObject> bonfiresItems = new List<GameObject>();   //List of room items
 
     [Header("Player Avatars")]
     public GameObject[] playerPrefabs;         //stored player prefabs
     public ExitGames.Client.Photon.Hashtable playerproperties = new ExitGames.Client.Photon.Hashtable();   //Custom property - Hashtable (a list with a name instead of #)
     public PlayerSO playerSOData;
-
+    public GameObject[] Lobby_Room_Player_SpawnPoints;
+    private GameObject spawnedLobbyPlayer;
 
     [Header("Debugging")]
     public TMP_Text regionTextbox;
@@ -137,8 +138,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
 
             //3D Lobby Settings
-            Bonfire_SpawnIndex = UnityEngine.Random.Range(0, Lobby_Room_SpawnPoints.Length);      //Choosing a Random Spawn point
+            Bonfire_SpawnIndex = UnityEngine.Random.Range(0, Lobby_Room_Bonfire_SpawnPoints.Length);      //Choosing a Random Spawn point
+            
             Bonfire_Index = UnityEngine.Random.Range(0, Bonfire_GameObjects.Length);              //Choosing a Random Fireplace
+
+            GameObject BonfirePosition = Lobby_Room_Bonfire_SpawnPoints[Bonfire_SpawnIndex];
+
+
+            spawnedLobbyPlayer.transform.position = BonfirePosition.transform.position;
+           // print("Move me to : " + BonfirePosition.transform.position);
+
 
             //Max player count is hardcoded at 2 instead of maxPlayerCount
             CreateRoom(roomInputField.text, /*maxPlayerCount*/ 2, passwordField.text, Bonfire_SpawnIndex, Bonfire_Index);
@@ -321,12 +330,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         //Waiting players will be outside of the room. 
 
+        //Setting up room
+
         Bonfire_Index = UnityEngine.Random.Range(0, Bonfire_GameObjects.Length);
-        Bonfire_SpawnIndex = UnityEngine.Random.Range(0, Lobby_Room_SpawnPoints.Length);
+        Bonfire_SpawnIndex = UnityEngine.Random.Range(0, Lobby_Room_Bonfire_SpawnPoints.Length);
         
 
         GameObject LobbyRoom = Bonfire_GameObjects[Bonfire_Index];
-        GameObject LobbySpawnPoints = Lobby_Room_SpawnPoints[Bonfire_SpawnIndex];
+        GameObject LobbySpawnPoints = Lobby_Room_Bonfire_SpawnPoints[Bonfire_SpawnIndex];
 
         Instantiate(LobbyRoom, LobbySpawnPoints.transform.position, Quaternion.identity);
 
@@ -404,7 +415,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //Bonfire Settings
 
             GameObject BonfireGO = Bonfire_GameObjects[(int)info.CustomProperties["Bonfire"]];                              //Getting the bonfire GO from the room information 
-            GameObject BonfireSpawnPoint = Lobby_Room_SpawnPoints[(int)info.CustomProperties["BonfireSpawnPoint"]];         //Getting the bonfire spawn point from the room information 
+            GameObject BonfireSpawnPoint = Lobby_Room_Bonfire_SpawnPoints[(int)info.CustomProperties["BonfireSpawnPoint"]];         //Getting the bonfire spawn point from the room information 
             GameObject bonfireINS = Instantiate(BonfireGO, BonfireSpawnPoint.transform.position, Quaternion.identity);
 
             RoomItem newRoom = bonfireINS.gameObject.GetComponent<RoomItem>();                                              //Get Room Component of bonfire
@@ -687,8 +698,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
    public void SpawnLobbyPlayer ()
     {
      
-            int randomNumber = UnityEngine.Random.Range(0, Lobby_Room_SpawnPoints.Length);
-            Transform spawnPoint = Lobby_Room_SpawnPoints[randomNumber].transform;
+            int randomNumber = UnityEngine.Random.Range(0, Lobby_Room_Player_SpawnPoints.Length);
+            Transform spawnPoint = Lobby_Room_Player_SpawnPoints[randomNumber].transform;
             
             GameObject playerToSpawn = playerPrefabs[(int)playerproperties["playerAvatar"]];
            
@@ -698,7 +709,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
          //   Debug.Log("Im located on " + this.gameObject);
             //  PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), Vector3.zero, Quaternion.identity);
 
-          GameObject spawnedLobbyPlayer =  Instantiate(playerToSpawn, spawnPoint.position, Quaternion.identity);
+          spawnedLobbyPlayer =  Instantiate(playerToSpawn, spawnPoint.position, Quaternion.identity);
         spawnedLobbyPlayer.gameObject.GetComponent<NetworkedPlayerController>().isInLobby = true;
     }
 
