@@ -706,6 +706,7 @@ public class NetworkedPlayerController : MonoBehaviour
 	 if (Input.GetKey(PerformAction))
         {
 			PermormingAction = true;
+			print("player controller performing action");
         }
 	 else
         {
