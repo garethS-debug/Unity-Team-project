@@ -129,15 +129,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // }
 
 
-        //Instantiate Chosen Character
-        SpawnLobbyPlayer();
 
         maxPlayerCount = 1;
 
         DebuggingFunction();
 
-        lobbyUI.gameObject.SetActive(false);
-   
+      //  lobbyUI.gameObject.SetActive(false);
+
+        //Start the coroutine we define below named ExampleCoroutine.
+       // StartCoroutine(ExampleCoroutine());
+
     }
 
     
@@ -739,6 +740,35 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         //   print("Region " + PhotonNetwork.CloudRegion);
         regionTextbox.text = PhotonNetwork.CloudRegion;
+    }
+
+
+
+
+    /// <summary>
+    ///CUT SCENE DELAY
+    /// </summary>
+    /// <returns></returns>
+
+    IEnumerator ExampleCoroutine()
+    {
+        //Print the time of when the function is first called.
+        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(5);
+
+        //After we have waited 5 seconds print the time again.
+        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+
+
+        //Instantiate Chosen Character
+        
+    }
+
+    public void OnTriggerSpawnPlayers ()
+    {
+        SpawnLobbyPlayer();
     }
 }
 

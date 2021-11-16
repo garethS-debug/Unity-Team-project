@@ -357,6 +357,7 @@ MonoBehaviour:
   LobbySpawnPoint: {fileID: 0}
   BonfireGO: {fileID: 0}
   bonfireGhost: {fileID: 501029140920689153}
+  isHostVersion: 0
 --- !u!65 &4902874812327242995
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6642,7 +6643,7 @@ PrefabInstance:
     - target: {fileID: 7605801967231495552, guid: f4d84259a5f58a5489417586c4b5de47,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4d84259a5f58a5489417586c4b5de47, type: 3}
