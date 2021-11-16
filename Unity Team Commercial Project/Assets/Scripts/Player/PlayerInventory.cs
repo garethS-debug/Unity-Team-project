@@ -12,8 +12,6 @@ public class PlayerInventory : MonoBehaviour
     [Header("Photon Settings")]
     PhotonView PV;                                              //Setting up photon view 
 
-    GameObject InventoryItem;                                   //Creating a variable for the inventory Item (to send instructions to) 
-
     public void OnTriggerEnter(Collider other)
     {
         var item = other.GetComponent<Item>();
@@ -25,11 +23,9 @@ public class PlayerInventory : MonoBehaviour
             if (item)
             {
                 inventory.AddItem(item.item, 1);                    //Photon 
-                // PhotonNetwork.Destroy(other.gameObject);        
-                //Destroy(other.gameObject);
-                InventoryItem = other.gameObject;
-                PhotonView photonView = PhotonView.Get(this);       //Get PhotonView on this gameobject
-                photonView.RPC("DestroyObject", RpcTarget.All);   //Send an RPC call to everyone 
+
+
+                item.DestroyItem();
             }
         }
     }
@@ -40,12 +36,5 @@ public class PlayerInventory : MonoBehaviour
         inventory.Container.Clear();
     }
 
-    [PunRPC]
-    void DestroyObject()                                      //Making sure the object is destroyed on everyones copy
-    {
-        //Destroy(gameObject);
-        Debug.Log("Destroy : " + InventoryItem.name);
-        InventoryItem.gameObject.SetActive(false);
-    }
 
 }
