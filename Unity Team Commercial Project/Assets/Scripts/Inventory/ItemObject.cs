@@ -13,5 +13,6 @@ public enum ItemType
 {
     Key,
     Heart,
+    PuzzlePiece,
     Default
 }

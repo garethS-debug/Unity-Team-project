@@ -731,8 +731,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
          //   Debug.Log("Im located on " + this.gameObject);
             //  PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerController"), Vector3.zero, Quaternion.identity);
 
-          spawnedLobbyPlayer =  Instantiate(playerToSpawn, spawnPoint.position, Quaternion.identity);
-        spawnedLobbyPlayer.gameObject.GetComponent<NetworkedPlayerController>().isInLobby = true;
+          spawnedLobbyPlayer =  Instantiate(playerToSpawn, spawnPoint.position, spawnPoint.rotation);
+            spawnedLobbyPlayer.gameObject.GetComponent<NetworkedPlayerController>().isInLobby = true;
     }
 
  public void DebuggingFunction()

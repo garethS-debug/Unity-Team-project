@@ -1,18 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+
 
 public class PlayerInventory : MonoBehaviour
 {
     public InventoryObject inventory;
 
+
+    [Header("Photon Settings")]
+    PhotonView PV;
+
     public void OnTriggerEnter(Collider other)
     {
         var item = other.GetComponent<Item>();
-        if (item)
+
+        PV = this.gameObject.GetComponent<PhotonView>();
+
+        if (PV.IsMine)
         {
-            inventory.AddItem(item.item, 1);
-            Destroy(other.gameObject);
+            if (item)
+            {
+                inventory.AddItem(item.item, 1);                //Photon 
+                Destroy(other.gameObject);
+            }
         }
     }
 
