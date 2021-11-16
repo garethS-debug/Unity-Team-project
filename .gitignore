@@ -59,3 +59,4 @@ sysinfo.txt
 crashlytics-build.properties
 
 Unity Team Commercial Project/Logs/AssetImportWorker0-prev.log
+*.log
