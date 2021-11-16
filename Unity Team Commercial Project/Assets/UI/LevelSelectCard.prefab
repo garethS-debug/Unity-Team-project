@@ -467,7 +467,7 @@ RectTransform:
   m_GameObject: {fileID: 4280487668367930508}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.74172, y: 0.74172, z: 0.74172}
   m_Children:
   - {fileID: 4280487667598673758}
   - {fileID: 4280487666373994219}
@@ -504,6 +504,8 @@ MonoBehaviour:
   - {fileID: 5665723737115513171}
   loadScene:
     m_Handle: 0
+  levelInfo: {fileID: 0}
+  currentScore: 0
   levelToLoad:
     sceneAsset: {fileID: 0}
     scenePath: 
