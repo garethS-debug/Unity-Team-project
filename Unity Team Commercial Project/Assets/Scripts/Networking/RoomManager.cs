@@ -28,8 +28,6 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     public void Start()
     {
-
-
         CreatePlayer();
     }
 
